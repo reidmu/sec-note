@@ -47,6 +47,8 @@
 - [Hacking Articles @Raj Chandel](https://www.hackingarticles.in/)
 - [cdxy的博客](https://www.cdxy.me/)
 - [倾旋的博客](https://payloads.online/)
+- [小九博客](https://war9.cn/)
+- [铺哩博客](https://www.cnblogs.com/cute-puli/)
 
 
 
