@@ -5,6 +5,8 @@
 
 # 工具
 - [水泽-信息收集自动化工具](https://github.com/0x727/ShuiZe_0x727)
+- [SRC子域名资产监控](https://github.com/LangziFun/LangSrcCurise)
+- [ARL(Asset Reconnaissance Lighthouse)资产侦察灯塔系统](https://github.com/TophantTechnology/ARL)
  
 # 公司名资产收集
 - [天眼查](https://www.tianyancha.com/)
