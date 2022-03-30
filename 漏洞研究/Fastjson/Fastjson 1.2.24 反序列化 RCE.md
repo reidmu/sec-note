@@ -20,6 +20,7 @@ fastjson在解析json的过程中，支持使用autoType来实例化某一个具
 ## 4.1 创建文件
 ### 1、访问网站
 靶机网页，出现json格式数据
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637769870459-6a12d565-239f-4ff3-a63c-2864dba482db.png#clientId=u3ffa8ee0-3db9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=211&id=ua5d0a75a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=211&originWidth=494&originalType=binary&ratio=1&rotation=0&showTitle=false&size=22175&status=done&style=none&taskId=ua0910123-7170-45f0-9863-a6a18dad4e4&title=&width=494)
 
 
@@ -50,6 +51,7 @@ public class TouchFile {
 
 使用python开启站点：
 `python3 -m http.server 8888`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637770059341-34ae9685-4459-4664-9264-0d399ff926d3.png#clientId=u3ffa8ee0-3db9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=66&id=udc37eda9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=66&originWidth=509&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28544&status=done&style=none&taskId=uadc082df-bfa4-4e17-a70f-afddef70a0b&title=&width=509)
 
 
