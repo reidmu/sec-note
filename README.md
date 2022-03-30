@@ -1,13 +1,7 @@
 # sec-note
 记录安全方面的笔记/工具/漏洞合集
 
-
-
-# 初学者阅读列表
-- [Web安全学习笔记](https://websec.readthedocs.io/zh/latest/)
-- 《白帽子讲WEB安全》
-
-
+- [HACK学习-信息安全导航](https://index.tesla-space.com/)
 
 # 渗透思路
 - [渗透测试☞经验/思路/想法/总结/笔记 @pen4uin](https://github.com/pen4uin/pentest-note)
@@ -23,13 +17,7 @@
 - [乌云历史文章](https://github.com/jiji262/wooyun_articles)
 - [阿里云漏洞库](https://47.101.61.67/)
 - [白阁文库漏洞库](https://baizesec.github.io/bylibrary/%E6%BC%8F%E6%B4%9E%E5%BA%93/01-CMS%E6%BC%8F%E6%B4%9E/ActiveMQ/ActiveMQ%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/)
-
-
-# 漏洞提交平台
-- [CNVD 国家信息安全漏洞共享平台](https://www.cnvd.org.cn/)
-- [EDU SRC](https://src.sjtu.edu.cn/)
-- [漏洞盒子](https://www.vulbox.com/)
-- [补天](https://www.butian.net/)
+- [零组公开漏洞库](https://wiki.96.mk/)
 
 
 # 安全博客论坛
