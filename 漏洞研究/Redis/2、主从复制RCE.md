@@ -66,7 +66,7 @@ service redis-server stop
 
 `ifconfig`命令可正常使用：
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637652897834-7fd95f71-6bc6-4821-9741-39a71e35987e.png#clientId=u9ca82c02-4aec-4&from=paste&height=558&id=u5480c40f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=744&originWidth=1036&originalType=binary&ratio=1&size=207473&status=done&style=none&taskId=uf7d5649b-e0ff-4e15-9f3d-336db628ad9&width=777)
+![image](https://user-images.githubusercontent.com/84888757/160878148-b8474e5f-b66a-4c3b-b730-100d65ca5149.png)
 
 #### 2、redis-rogue-server 反弹shell
 
