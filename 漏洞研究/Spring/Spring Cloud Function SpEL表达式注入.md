@@ -33,17 +33,14 @@ Spring Cloud Function 是基于Spring Boot 的函数计算框架（FaaS），该
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562018543-45c2fd6a-60f3-4881-99f4-e02c13b18204.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ue280a4f2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=47799&status=done&style=none&taskId=u6d86d62e-5d6b-4523-be53-f5adfbeb3d6&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562930404-565a6005-8aee-4d80-9010-c0e8804aea4c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ub99d6fd3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=45236&status=done&style=none&taskId=u0b72f8b5-f3e0-4152-81cb-0db00b1274b&width=501)
 
-选择Spring Web和Function作为依赖项，点击完成。
+选择Spring Web和Function作为依赖项，点击点击Next->Finish
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562589621-53e3c3d1-419e-46fd-89e4-ca55ca55dc7c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u43968741&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=49678&status=done&style=none&taskId=u603f48be-aadd-446a-b5dc-c3604b99fc2&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562648138-37b5c54c-10cf-45d1-85ce-8f7632256685.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u66e9348c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=63260&status=done&style=none&taskId=uf2cd748f-2a91-42ab-a291-774eaf9fff1&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562988152-0c9dbf39-23b2-4cee-b2ae-f5208bf4c7fd.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u9a7f0a89&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=32212&status=done&style=none&taskId=u25071f00-0834-48bb-ab9e-0333eabc9b3&width=501)
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562589621-53e3c3d1-419e-46fd-89e4-ca55ca55dc7c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u43968741&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=49678&status=done&style=none&taskId=u603f48be-aadd-446a-b5dc-c3604b99fc2&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562648138-37b5c54c-10cf-45d1-85ce-8f7632256685.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u66e9348c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=63260&status=done&style=none&taskId=uf2cd748f-2a91-42ab-a291-774eaf9fff1&width=501)
 
-漏洞环境搭建完成。因当前官方还未发布新版本，所以最新版本3.2.2也是存在漏洞的，若在官方出新版本后想要复现此漏洞，那么需要修改pom中spring-cloud-function-web的版本为3.2.2，然后Reload project，如下图所示：
+漏洞环境搭建完成。在官方出新版本后想要复现此漏洞，那么需要修改pom中spring-cloud-function-web的版本为3.2.2，然后Reload project，如下图所示：
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648605954300-b45c6864-b88b-4d05-bb42-f9e3ca18bfbe.png#clientId=u5b12fd36-c309-4&from=paste&id=uc57ef0ca&margin=%5Bobject%20Object%5D&name=image.png&originHeight=839&originWidth=1659&originalType=binary&ratio=1&size=190685&status=done&style=none&taskId=u2ac3725e-1f9a-4edd-9eb0-f2cb73d0dec)
+![image](https://user-images.githubusercontent.com/84888757/161368569-5d6eae31-029f-4b7d-9aeb-c78ba516ef51.png)
 
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648605891158-a066c9b4-9711-4e08-8163-b69d75b5a20c.png#clientId=u5b12fd36-c309-4&from=paste&height=365&id=uda702342&margin=%5Bobject%20Object%5D&name=image.png&originHeight=730&originWidth=1220&originalType=binary&ratio=1&size=147470&status=done&style=none&taskId=uf23be6df-7d08-45ba-bf2c-f49c9667b38&width=610)
-
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648578490895-a1589a92-8859-4b29-a851-0ac36e699f0d.png#clientId=u2e15bc76-4605-4&from=paste&height=760&id=uee482733&margin=%5Bobject%20Object%5D&name=image.png&originHeight=760&originWidth=1256&originalType=binary&ratio=1&size=163799&status=done&style=none&taskId=u72e2d0d8-328e-457b-a731-9a68681eefe&width=1256)
 
 确认项目中的spring-cloud-function-web是存在漏洞版本后，就可以直接启动项目了，无需进行任何修改。（相当于后面提到的**第2种**利用）
 
