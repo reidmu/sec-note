@@ -15,16 +15,22 @@ Spring Cloud Function 是基于Spring Boot 的函数计算框架（FaaS），该
 
 
 # 环境搭建1 - Windows
-修改IDEA中maven配置文件和仓库的位置
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572627026-28ac30f7-343a-4524-a000-acf5939efe48.png#clientId=uf3a2b05e-02fe-4&from=paste&height=514&id=u2f5c8230&margin=%5Bobject%20Object%5D&name=image.png&originHeight=514&originWidth=527&originalType=binary&ratio=1&size=40997&status=done&style=none&taskId=u5d2ee8bf-5841-4bcd-ada4-123c6198564&width=527)
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572605379-67dbf913-f2bc-45f7-8fa2-085efac98611.png#clientId=uf3a2b05e-02fe-4&from=paste&height=712&id=uc42e8c15&margin=%5Bobject%20Object%5D&name=image.png&originHeight=712&originWidth=982&originalType=binary&ratio=1&size=66981&status=done&style=none&taskId=u5ca4035a-63ed-43f0-a642-f2bfd83da77&width=982)
-
 测试版本：`spring-cloud-function-web 3.2.2`
 
+修改IDEA中maven配置文件和仓库的位置
+
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572627026-28ac30f7-343a-4524-a000-acf5939efe48.png#clientId=uf3a2b05e-02fe-4&from=paste&height=514&id=u2f5c8230&margin=%5Bobject%20Object%5D&name=image.png&originHeight=514&originWidth=527&originalType=binary&ratio=1&size=40997&status=done&style=none&taskId=u5d2ee8bf-5841-4bcd-ada4-123c6198564&width=527)
+
+![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572605379-67dbf913-f2bc-45f7-8fa2-085efac98611.png#clientId=uf3a2b05e-02fe-4&from=paste&height=712&id=uc42e8c15&margin=%5Bobject%20Object%5D&name=image.png&originHeight=712&originWidth=982&originalType=binary&ratio=1&size=66981&status=done&style=none&taskId=u5ca4035a-63ed-43f0-a642-f2bfd83da77&width=982)
+
+
+
 社区版IDEA配置，在settings中plugins中搜索spring Assistant，安装
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648561872025-16b39db7-d044-48e5-80ba-08c87b8acb6b.png#clientId=u5b12fd36-c309-4&from=paste&height=445&id=u497c9a48&margin=%5Bobject%20Object%5D&name=image.png&originHeight=890&originWidth=1227&originalType=binary&ratio=1&size=117839&status=done&style=none&taskId=u94a1c777-c9a6-49b0-85e6-ca23018bca9&width=613.5)
 
 创建一个Spring Initializr项目，这里使用JDK1.8
+
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562018543-45c2fd6a-60f3-4881-99f4-e02c13b18204.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ue280a4f2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=47799&status=done&style=none&taskId=u6d86d62e-5d6b-4523-be53-f5adfbeb3d6&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562930404-565a6005-8aee-4d80-9010-c0e8804aea4c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ub99d6fd3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=45236&status=done&style=none&taskId=u0b72f8b5-f3e0-4152-81cb-0db00b1274b&width=501)
 
 选择Spring Web和Function作为依赖项，点击完成。
@@ -39,7 +45,7 @@ Spring Cloud Function 是基于Spring Boot 的函数计算框架（FaaS），该
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648578490895-a1589a92-8859-4b29-a851-0ac36e699f0d.png#clientId=u2e15bc76-4605-4&from=paste&height=760&id=uee482733&margin=%5Bobject%20Object%5D&name=image.png&originHeight=760&originWidth=1256&originalType=binary&ratio=1&size=163799&status=done&style=none&taskId=u72e2d0d8-328e-457b-a731-9a68681eefe&width=1256)
 
-确认项目中的spring-cloud-function-web是存在漏洞版本后，就可以直接启动项目了，无需进行任何修改。（相当于**第二种**利用）
+确认项目中的spring-cloud-function-web是存在漏洞版本后，就可以直接启动项目了，无需进行任何修改。（相当于后面提到的**第2种**利用）
 
 启动项目
 
@@ -103,9 +109,9 @@ test3 rce
 
 
 # 参考链接
-[https://mp.weixin.qq.com/s/U7YJ3FttuWSOgCodVSqemg](https://mp.weixin.qq.com/s/U7YJ3FttuWSOgCodVSqemg)
-[https://mp.weixin.qq.com/s/MiKWnGuyXTTLQVKjq2E_Gw](https://mp.weixin.qq.com/s/MiKWnGuyXTTLQVKjq2E_Gw)
-[https://mp.weixin.qq.com/s/ssHcLC72wZqzt-ei_ZoLwg](https://mp.weixin.qq.com/s/ssHcLC72wZqzt-ei_ZoLwg)
-[https://mp.weixin.qq.com/s/APiXRwSiEanoIuohjwkoEw](https://mp.weixin.qq.com/s/APiXRwSiEanoIuohjwkoEw)
+- [https://mp.weixin.qq.com/s/U7YJ3FttuWSOgCodVSqemg](https://mp.weixin.qq.com/s/U7YJ3FttuWSOgCodVSqemg)
+- [https://mp.weixin.qq.com/s/MiKWnGuyXTTLQVKjq2E_Gw](https://mp.weixin.qq.com/s/MiKWnGuyXTTLQVKjq2E_Gw)
+- [https://mp.weixin.qq.com/s/ssHcLC72wZqzt-ei_ZoLwg](https://mp.weixin.qq.com/s/ssHcLC72wZqzt-ei_ZoLwg)
+- [https://mp.weixin.qq.com/s/APiXRwSiEanoIuohjwkoEw](https://mp.weixin.qq.com/s/APiXRwSiEanoIuohjwkoEw)
 
 
