@@ -3,7 +3,7 @@
 AK/SK用于在通过对象存储服务API（一个提供存储能力的web服务接口）访问存储数据时，生成鉴权信息进行安全认证。
 
 🌰 使用AK/SK访问OSS
-对象存储服务（Object Storage Service，OSS）是一种云存储服务，适合存放任意类型的文件。
+对象存储服务（Object Storage Service，OSS），OSS是一种云存储服务，适合存放任意类型的文件。
 
 常见对象存储服务OSS厂商
 - 腾讯云
