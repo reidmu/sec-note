@@ -17,14 +17,6 @@ Spring Cloud Function 是基于Spring Boot 的函数计算框架（FaaS），该
 # 环境搭建1 - Windows
 测试版本：`spring-cloud-function-web 3.2.2`
 
-修改IDEA中maven配置文件和仓库的位置
-
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572627026-28ac30f7-343a-4524-a000-acf5939efe48.png#clientId=uf3a2b05e-02fe-4&from=paste&height=514&id=u2f5c8230&margin=%5Bobject%20Object%5D&name=image.png&originHeight=514&originWidth=527&originalType=binary&ratio=1&size=40997&status=done&style=none&taskId=u5d2ee8bf-5841-4bcd-ada4-123c6198564&width=527)
-
-![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648572605379-67dbf913-f2bc-45f7-8fa2-085efac98611.png#clientId=uf3a2b05e-02fe-4&from=paste&height=712&id=uc42e8c15&margin=%5Bobject%20Object%5D&name=image.png&originHeight=712&originWidth=982&originalType=binary&ratio=1&size=66981&status=done&style=none&taskId=u5ca4035a-63ed-43f0-a642-f2bfd83da77&width=982)
-
-
-
 社区版IDEA配置，在settings中plugins中搜索spring Assistant，安装
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648561872025-16b39db7-d044-48e5-80ba-08c87b8acb6b.png#clientId=u5b12fd36-c309-4&from=paste&height=445&id=u497c9a48&margin=%5Bobject%20Object%5D&name=image.png&originHeight=890&originWidth=1227&originalType=binary&ratio=1&size=117839&status=done&style=none&taskId=u94a1c777-c9a6-49b0-85e6-ca23018bca9&width=613.5)
@@ -33,7 +25,7 @@ Spring Cloud Function 是基于Spring Boot 的函数计算框架（FaaS），该
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562018543-45c2fd6a-60f3-4881-99f4-e02c13b18204.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ue280a4f2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=47799&status=done&style=none&taskId=u6d86d62e-5d6b-4523-be53-f5adfbeb3d6&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562930404-565a6005-8aee-4d80-9010-c0e8804aea4c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=ub99d6fd3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=45236&status=done&style=none&taskId=u0b72f8b5-f3e0-4152-81cb-0db00b1274b&width=501)
 
-选择Spring Web和Function作为依赖项，点击点击Next->Finish
+选择Spring Web和Function作为依赖项，点击Next->Finish
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562589621-53e3c3d1-419e-46fd-89e4-ca55ca55dc7c.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u43968741&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=49678&status=done&style=none&taskId=u603f48be-aadd-446a-b5dc-c3604b99fc2&width=501)![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648562648138-37b5c54c-10cf-45d1-85ce-8f7632256685.png#clientId=u5b12fd36-c309-4&from=paste&height=418&id=u66e9348c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=836&originWidth=1002&originalType=binary&ratio=1&size=63260&status=done&style=none&taskId=uf2cd748f-2a91-42ab-a291-774eaf9fff1&width=501)
 
@@ -66,6 +58,14 @@ test0xin rce
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/22669825/1648577745122-5a60c78f-8a48-40d6-977b-a7c45dbcb23f.png#clientId=u782acaee-1c0f-4&from=paste&height=384&id=btRFS&margin=%5Bobject%20Object%5D&name=image.png&originHeight=384&originWidth=1170&originalType=binary&ratio=1&size=104584&status=done&style=none&taskId=ud9dc7627-79b8-4f2c-b71a-564ca6e8ec5&width=1170)
 
 ## 第2种利用：默认配置+特定路由
+**为什么会有`/functionRouter`这个路由？**（p神的解答）
+
+官方注册了一个Bean，对应到Spring Cloud Function里就是一个“函数”。
+具体可看[/functionRouter路由来源](https://github.com/spring-cloud/spring-cloud-function/blob/28f32d473b079d6eba64169d1547830064020524/spring-cloud-function-context/src/main/java/org/springframework/cloud/function/context/config/ContextFunctionCatalogAutoConfiguration.java#L143)
+
+![image](https://user-images.githubusercontent.com/84888757/162112225-2e5361e5-783c-4394-a1d0-c356776685fd.png)
+
+**复现过程如下**
 ```php
 POST /functionRouter HTTP/1.1
 Host: 127.0.0.1:8080
