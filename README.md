@@ -2,6 +2,7 @@
 记录安全方面的笔记/工具/漏洞合集
 
 - [HACK学习-信息安全导航](https://index.tesla-space.com/)
+- [信息安全从业者书单推荐](https://github.com/riusksk/secbook)
 
 # 渗透思路
 - [渗透测试☞经验/思路/想法/总结/笔记 @pen4uin](https://github.com/pen4uin/pentest-note)
