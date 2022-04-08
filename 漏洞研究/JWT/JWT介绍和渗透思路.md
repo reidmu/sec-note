@@ -318,6 +318,7 @@ python3 jwt_tool.py eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWl
 
 - [https://anubhav-singh.medium.com/get-a-feel-of-jwt-json-web-token-8ee9c16ce5ce](https://anubhav-singh.medium.com/get-a-feel-of-jwt-json-web-token-8ee9c16ce5ce)
 - [https://mp.weixin.qq.com/s/avOTFTqRVrP1RHwn-c2sXA](https://mp.weixin.qq.com/s/avOTFTqRVrP1RHwn-c2sXA)
+- [JWT 鉴权攻击 @zjun](https://blog.zjun.info/tech/attacking-jwt-authentication/)
 - [Attacks on JSON Web Token (JWT) -- Anubhav Singh](https://infosecwriteups.com/attacks-on-json-web-token-jwt-278a49a1ad2e)
 - [JWT实战-2020-虎符网络安全赛道-Web-easy_login](https://mp.weixin.qq.com/s/avOTFTqRVrP1RHwn-c2sXA)
 - [本文靶场 - ctfhub](https://www.ctfhub.com/#/skilltree)​
