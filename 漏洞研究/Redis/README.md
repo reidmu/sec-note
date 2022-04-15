@@ -25,6 +25,7 @@ Redis因配置不当可以未授权访问。攻击者无需认证访问到内部
     - jackson
     - fastjson
     - jdk/Hessian反序列化
+    - [shiro反序列化](https://xz.aliyun.com/t/11198)
   - python反序列化
   - php反序列化
 
