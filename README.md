@@ -21,6 +21,7 @@
 - [零组公开漏洞库](https://wiki.96.mk/)
 - [各种数据库的利用姿势 @safe6Sec](https://github.com/safe6Sec/PentestDB)
 - [各种CMS、各种平台、各种系统、各种软件漏洞的EXP、POC @helloexp](https://github.com/helloexp/0day)
+- [Vuln-List @想走安全的小白](https://github.com/wwl012345/Vuln-List/)
 
 
 # 安全博客论坛
