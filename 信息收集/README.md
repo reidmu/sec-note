@@ -70,6 +70,9 @@
   - service.httpget
   - path
   - api
+  - 存在xxx.js.map文件时
+    - 搜索 axios 关键字，查找路由
+
 
 # APP
 - [小蓝本](https://www.xiaolanben.com/pc)
@@ -81,3 +84,28 @@
 # WAF识别
 - [WhatWaf](https://github.com/Ekultek/WhatWaf)
 - [wafw00f](https://github.com/EnableSecurity/wafw00f)
+
+
+
+# 敏感信息
+## 网盘引擎
+- [超能搜](https://www.chaonengsou.com)
+
+## Googlehack语法
+- 后台地址
+  - site:xxx.com intitle:管理|后台|登陆|管理员|系统|内部
+  - site:xxx.com inurl:login|admin|system|guanli|denglu|manage|admin_login|auth|dev
+- 敏感文件
+  - site:xxx.com (filetype:doc OR filetype:ppt OR filetype:pps OR filetype:xls OR filetype:docx OR filetype:pptx OR filetype:ppsx OR filetype:xlsx OR filetype:odt OR --filetype:ods OR filetype:odg OR filetype:odp OR filetype:pdf OR filetype:wpd OR filetype:svg OR filetype:svgz OR filetype:indd OR filetype:rdp OR filetype:sql OR filetype:xml OR filetype:db OR filetype:mdb OR filetype:sqlite OR filetype:log OR filetype:conf)
+- 测试环境
+  - site:xxx.com inurl:test|ceshi
+  - site:xxx.com intitle:测试
+- 邮箱
+  - site:xxx.com (intitle:"Outlook Web App" OR intitle:"邮件" OR inurl:"email" OR inurl:"webmail")
+- 其他
+  - site:xxx.com inurl:api|uid=|id=|userid=|token|session
+  - site:xxx.com intitle:index.of "server at"
+
+## Github
+  - @xxx.com password/secret/credentials/token/config/pass/login/ftp/ssh/pwd
+  - @xxx.com security_credentials/connetionstring/JDBC/ssh2_auth_password/send_keys
