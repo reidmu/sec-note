@@ -1,5 +1,6 @@
 # Fastjson 利用参考
 - [Fastjson姿势技巧集合](https://github.com/safe6Sec/Fastjson)
+- [fastjson不出网回显利用](https://github.com/depycode/fastjson-c3p0)
 
 
 # 历史漏洞
