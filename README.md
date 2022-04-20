@@ -43,6 +43,7 @@
 - [小九博客](https://war9.cn/)
 - [铺哩博客](https://www.cnblogs.com/cute-puli/)
 - [程序分析、web安全 @panda](https://www.cnpanda.net/)
+- [jas502n](https://github.com/jas502n?tab=repositories)
 
 
 
