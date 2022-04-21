@@ -55,6 +55,13 @@ AK/SK用于在通过对象存储服务API（一个提供存储能力的web服务
 ## 4、Github泄露
 搜索目标信息关键词仓库，匹配accessKey等关键字。
 
+## 5、后台
+- ThinkCMF七牛
+
+![image](https://user-images.githubusercontent.com/84888757/164454869-7a03c778-341b-49b2-8097-cad93f4051f2.png)
+
+
+
 
 # 0x03 获取到 AK | SK 后如何连接？
 - [阿里云 - 图形化管理工具ossbrowser](https://help.aliyun.com/document_detail/92268.html)
