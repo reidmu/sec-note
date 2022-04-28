@@ -2,6 +2,7 @@
 - 参考链接：
   - [信息收集之“骚”姿势 @鱼七](https://zone.huoxian.cn/d/618)
   - [做好信息收集是一次渗透测试的良好开端 @Paper-Pen](https://github.com/Paper-Pen/GatherInfo)
+  - [干货|最全Web 渗透测试信息搜集-CheckList @mathwizard](https://mp.weixin.qq.com/s/x6vtRNKJ7lxv9_5cSFL5gw)
 
 - 整体思路：
   - 子域名 -> 全端口 -> http、https -> 获取资产 -> 指纹识别
