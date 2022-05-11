@@ -200,7 +200,7 @@ multipart/form-data; boundary=blah ; charset=ibm037
 
 
 ## 分块传输
-原理:分快传输编码是http的一种数据传输机制，允许http由网页服务器发送到客户端应用的数据进行分块发送。
+原理:分块传输编码是http的一种数据传输机制，允许http由网页服务器发送到客户端应用的数据进行分块发送。
 
 burp插件：https://github.com/c0ny1/chunked-coding-converter
 
@@ -208,6 +208,7 @@ burp插件：https://github.com/c0ny1/chunked-coding-converter
 在头部加入 `Transfer-Encoding: chunked` 之后，就代表这个报文采用了分块编码。这时，post请求报文中的数据部分需要改为用一系列分块来传输。每个分块包含十六进制的长度值和数据，长度值独占一行，长度不包括它结尾的，也不包括分块数据结尾的，且最后需要用0独占一行表示结束。
 
 🌰 图自酒仙桥六号部队
+
 ![image](https://user-images.githubusercontent.com/84888757/167204119-afb0b241-302e-4808-88d3-e78c5643774f.png)
 
 
@@ -320,3 +321,5 @@ unicode会自动解码
 - [WAF绕过通用思路](https://www.freebuf.com/articles/network/324192.html)
 - [waf绕过拍了拍你](https://www.anquanke.com/post/id/212272)
 - [最全的文件上传漏洞之WAF拦截绕过总结 @Ulysses](https://mp.weixin.qq.com/s/FW93imGul0kNxbi2RhXBfA)
+- [常见WAF的拦截页整理 @3had0w](https://mp.weixin.qq.com/s/1nlKhhAN0ZKRa0BkOqamSg)
+- [命令执行绕过WAF总结，RCE常见的Bypass思路 @L3ife1](https://www.freebuf.com/articles/web/330736.html)
