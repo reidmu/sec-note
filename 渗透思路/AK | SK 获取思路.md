@@ -1,6 +1,7 @@
 # AK/SK 思路
 # 0x01 概念
 AK/SK用于在通过对象存储服务API（一个提供存储能力的web服务接口）访问存储数据时，生成鉴权信息进行安全认证。
+AccessKey包括AccessKeyID和AccessKeySecret两部分，AccessKeyID用于标识用户，AccessKeySecret用于验证用户的密钥，主要用于程序方式调用云服务API。
 
 🌰 使用AK/SK访问OSS
 对象存储服务（Object Storage Service，OSS），OSS是一种云存储服务，适合存放任意类型的文件。
@@ -60,11 +61,28 @@ AK/SK用于在通过对象存储服务API（一个提供存储能力的web服务
 
 ![image](https://user-images.githubusercontent.com/84888757/164454869-7a03c778-341b-49b2-8097-cad93f4051f2.png)
 
+## 6、数据库
+数据库弱口令 -> 翻config表找到AK/SK
 
+![image](https://user-images.githubusercontent.com/84888757/171735217-ab8b4dd6-1960-4de0-8661-c2e9b18e5d38.png)
 
+## 7、各种配置文件
+文件包含/文件读取/各种其它漏洞 -> 读取配置文件
+包括但不限于以下几类途径：
+- jar包反编译
+- apk反编译
+- 小程序解包后获取的源码
+- java的内存文件heapdump泄露
 
-# 0x03 获取到 AK | SK 后如何连接？
+# 0x03 获取到 AK | SK 后如何连接或利用？
+3.1 通过API接口
+- 阿里云：https://api.aliyun.com/#/?product=Ecs
+- 腾讯云：https://cloud.tencent.com/document/product/1340/52676
+
+3.2 通过第三方管理工具
 - [阿里云 - 图形化管理工具ossbrowser](https://help.aliyun.com/document_detail/92268.html)
 - [七牛云 - 图形化工具 Kodo Browser](https://developer.qiniu.com/kodo/5972/kodo-browser)
 - [行云管家 - 多种云存储服务管理](https://www.cloudbility.com/)
 
+3.3 getshell
+- [记一次实战阿里云主机泄露Access Key到getshell](https://cn-sec.com/archives/482553.html)
