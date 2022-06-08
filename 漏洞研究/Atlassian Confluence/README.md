@@ -114,10 +114,9 @@ Linux：Confluence默认权限为confluence，没有写权限
 > app="ATLASSIAN-Confluence"
 
 # 0x03 Confluence 历史漏洞
-- [Confluence路径穿越与命令执行漏洞（CVE-2019-3396）](https://github.com/reidmu/sec-note/blob/main/%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Atlassian%20Confluence/Confluence%E8%B7%AF%E5%BE%84%E7%A9%BF%E8%B6%8A%E4%B8%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E(CVE-2019-3396).md)
+- [Confluence 路径穿越与命令执行漏洞（CVE-2019-3396）](https://github.com/reidmu/sec-note/blob/main/%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Atlassian%20Confluence/Confluence%E8%B7%AF%E5%BE%84%E7%A9%BF%E8%B6%8A%E4%B8%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E(CVE-2019-3396).md)
 
-- OGNL表达式注入代码执行漏洞（CVE-2021-26084）
-
+- [Confluence OGNL表达式注入代码执行漏洞（CVE-2021-26084）](https://github.com/reidmu/sec-note/blob/main/%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Atlassian%20Confluence/Confluence%20OGNL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E(CVE-2021-26084).md)
 - Atlassian Confluence 远程代码执行（CVE-2022-26134）
 
 # 0x04 Confluence 后利用思路
