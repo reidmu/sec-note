@@ -1,16 +1,16 @@
 # Atlassian Confluence
-# 基本介绍
+# 0x01 基本介绍
 Confluence是一个专业的企业知识管理与协同软件，也可以用于构建企业wiki（多人协作的写作系统）。使用简单，但它强大的编辑和站点管理特征能够帮助团队成员之间共享信息、文档协作、集体讨论，信息推送。
 
-# FOFA dork
+# 0x02 FOFA dork
 > app="ATLASSIAN-Confluence"
 
-# Confluence 历史漏洞
+# 0x03 Confluence 历史漏洞
 - OGNL表达式注入代码执行漏洞（CVE-2021-26084）
 - Confluence路径穿越与命令执行漏洞（CVE-2019-3396）
 - Atlassian Confluence 远程代码执行（CVE-2022-26134）
 
-# Confluence 后利用思路
+# 0x04 Confluence 后利用思路
 - 来自 https://github.com/pen4uin/pentest-note
 
 
