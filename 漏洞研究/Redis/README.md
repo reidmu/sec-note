@@ -35,6 +35,32 @@ Redis因配置不当可以未授权访问。攻击者无需认证访问到内部
 
 - Lua RCE
 
+# 中文路径
+某次遇到了web存在中文路径问题，如果直接`config set dir "中文"`的话会报错。
+
+可以自己在本地搭建个Redis， 把Redis所有文件放到对应的中文文件夹里，经测试Linux下转义跟Windows不同，要根据靶机系统选择对应的环境。
+
+## Windows
+  - 使用`config get dir`查看配置文件路径，就是一个对中文编码后地址。
+
+![image](https://user-images.githubusercontent.com/84888757/173911780-118172c6-177d-4ad6-b82c-feebe3cd7930.png)
+
+  - 或者直接下使用python2的`repr`函数进行十六进制转义。
+
+![image](https://user-images.githubusercontent.com/84888757/173911904-35d62fa0-2a7d-4848-9f28-6852ecfb8b0f.png)
+
+## Linux
+  - 使用`config get dir`查看配置文件路径，就是一个对中文编码后地址。
+
+
+![image](https://user-images.githubusercontent.com/84888757/173912546-10e8b85e-1c30-4ed7-8c93-854009e5e1c5.png)
+
+  - 或者直接下使用python2的`repr`函数进行十六进制转义。
+
+
+![image](https://user-images.githubusercontent.com/84888757/173914914-7c505662-aff5-4dc1-83d0-b0847779e80c.png)
+
+
 # 面试题
 - Redis计划任务反弹shell失败原因？
   - 目标机器不出网
