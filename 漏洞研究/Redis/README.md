@@ -43,22 +43,20 @@ Redis因配置不当可以未授权访问。攻击者无需认证访问到内部
 ## Windows
   - 使用`config get dir`查看配置文件路径，就是一个对中文编码后地址。
 
-![image](https://user-images.githubusercontent.com/84888757/173911780-118172c6-177d-4ad6-b82c-feebe3cd7930.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/173911780-118172c6-177d-4ad6-b82c-feebe3cd7930.png"/></div>
 
   - 或者直接下使用python2的`repr`函数进行十六进制转义。
 
-![image](https://user-images.githubusercontent.com/84888757/173911904-35d62fa0-2a7d-4848-9f28-6852ecfb8b0f.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/173911904-35d62fa0-2a7d-4848-9f28-6852ecfb8b0f.png"/></div>
 
 ## Linux
   - 使用`config get dir`查看配置文件路径，就是一个对中文编码后地址。
 
-
-![image](https://user-images.githubusercontent.com/84888757/173912546-10e8b85e-1c30-4ed7-8c93-854009e5e1c5.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/173912546-10e8b85e-1c30-4ed7-8c93-854009e5e1c5.png"/></div>
 
   - 或者直接下使用python2的`repr`函数进行十六进制转义。
 
-
-![image](https://user-images.githubusercontent.com/84888757/173914914-7c505662-aff5-4dc1-83d0-b0847779e80c.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/173914914-7c505662-aff5-4dc1-83d0-b0847779e80c.png"/></div>
 
 
 # 面试题
