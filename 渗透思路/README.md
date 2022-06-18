@@ -188,13 +188,13 @@ with open( 'pass.txt', 'r' ) as f1:
 
 - 找寻根路径
   - 向上遍历当前数据库物理路径`data`，`http://ip/data` 返回403响应，说明存在`data`网站url
-  - 继续向上遍历当前数据库物理路径`ksystem`，`http://ip/ksystem` 返回404响应，说明它不在对外开放的网站url下，可能是网站物理根路径
+  - 继续向上遍历当前数据库物理路径`ksystem`，`http://ip/ksystem` 返回404响应，说明`ksystem`不在对外开放的网站url下，可能是网站物理根路径
   - 访问备份数据库目录`beidir`， `http://ip/beidir` 返回403响应，说明存在`beidir`网站url
 
 > tips：判断路径`a`是否存在，可以访问 http://xx.com/a ，即使浏览器返回页面为空，但路径会自动添加/，变成http://xx.com/a/ ，那么`a`路径很可能存在。
 
 - 利用数据库备份功能将`.JPG`木马备份成`.asp`木马
-  - 将当前数据库路径设置成：`.JPG`木马上传后得到的路径 `D:\xxx\ksystem\data\editor\aaaa\bbbb\1234.jpg`
+  - 将当前数据库路径设置成：`.JPG`木马上传后得到的路径 `D:\xxx\ksystem\editor\aaaa\bbbb\1234.jpg`
   - 将备份数据库的文件名后缀改成可解析的备份文件名`1234.asp`
   - 进行备份，提示备份成功
   - 连接http://xxx.com/备份文件路径/备份文件名.asp ，即 `http://8.142.126.47/beidir/muma.asp`
