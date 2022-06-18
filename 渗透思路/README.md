@@ -173,7 +173,7 @@ with open( 'pass.txt', 'r' ) as f1:
 ```
 
 
-## 🚩 打点-数据库备份 -> getshell
+## 打点-数据库备份 -> getshell
 - 整体利用思路
   - 编辑器上传`.JPG`图片马 -> 利用数据库备份功能将`.JPG`木马备份成`.asp`木马 -> getshell
 
