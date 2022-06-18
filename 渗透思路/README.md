@@ -3,7 +3,7 @@
 - [🚩 打点 - SQL注入 + XSS -> getshell](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9---sql%E6%B3%A8%E5%85%A5--xss---getshell)
 - [🚩 打点 - 任意文件读取->暴破.bash_history](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9---%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-%E6%9A%B4%E7%A0%B4bash_history)
 - [🚩 打点-文件下载/信息收集 mlocate.db](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-mlocatedb)
-- [🚩 打点 - 登录框无法破解加密算法 -> py脚本控制重复发包](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9---%E6%97%A0%E6%B3%95%E7%A0%B4%E8%A7%A3%E7%9A%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95---py%E8%84%9A%E6%9C%AC%E6%8E%A7%E5%88%B6%E9%87%8D%E5%A4%8D%E5%8F%91%E5%8C%85)
+- [🚩 打点 - 登录框无法破解加密算法 -> py脚本控制重复发包](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9---%E7%99%BB%E5%BD%95%E6%A1%86%E6%97%A0%E6%B3%95%E7%A0%B4%E8%A7%A3%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95---py%E8%84%9A%E6%9C%AC%E6%8E%A7%E5%88%B6%E9%87%8D%E5%A4%8D%E5%8F%91%E5%8C%85)
 - [🚩 打点-数据库备份 -> getshell](https://github.com/reidmu/sec-note/blob/main/%E6%B8%97%E9%80%8F%E6%80%9D%E8%B7%AF/README.md#%E6%89%93%E7%82%B9-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD---getshell)
 
 
