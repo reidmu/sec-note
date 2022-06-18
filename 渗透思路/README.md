@@ -107,7 +107,7 @@ ocr.tenc.appId=-
 4. 暴破所有用户的.bash_history：../../../home/§root§/.bash_history
 
 
-## 🚩 打点-文件下载/信息收集 mlocate.db
+## 打点-文件下载/信息收集 mlocate.db
 `locate` 是用来查找文件或目录的，它不搜索具体目录，而是搜索一个数据库`mlocate.db`
 
 `mlocate.db` 含有本地所有文件信息。Linux系统自动创建这个数据库，并且每天自动更新一次。
