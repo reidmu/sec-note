@@ -12,8 +12,6 @@
 
 
 # 漏洞库
-- [漏洞猎人☞实战案例 @pen4uin](https://github.com/pen4uin/bug-bounty)
-- [漏洞研究☞OA/中间件/框架/路由器 @pen4uin](url)
 - [乌云历史漏洞查询](http://wy.zone.ci/)
 - [乌云历史文章](https://github.com/jiji262/wooyun_articles)
 - [阿里云漏洞库](https://47.101.61.67/)
