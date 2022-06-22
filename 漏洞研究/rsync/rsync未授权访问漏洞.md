@@ -16,10 +16,10 @@ https://github.com/vulhub/vulhub/tree/master/rsync/common
 
 攻击机：192.168.50.53
 
-# 0x02 利用条件 - 未授权访问漏洞
+# 0x02 利用条件
 rsync默认允许匿名访问，其配置文件 `/etc/rsyncd.conf` 中未包含授权账号行(auth users)，则为匿名访问。
 
-# 0x03 利用方式 - 未授权访问漏洞
+# 0x03 利用方式
 ## 3.1 访问rsync服务器
 ```
 rsync rsync://192.168.50.227:873/
