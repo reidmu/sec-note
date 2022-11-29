@@ -2,7 +2,31 @@
 
 ## 0x00 前置知识
 ### 如何调试ysoserial
-如果单独调试payload的话，可以直接调试执行payloads里面的java文件，每个都带调用`PayloadRunner`的`main`函数，不设置运行参数会取`calc.exe`作为默认参数取执行。 `PayloadRunner`会先生成序列化数据再进行反序列化。
+
+通过`pom.xml`加载完依赖以后，我们需要找找整个项目里有哪些入口点（其实就是主类和main函数）。这个可以在`pom.xml`里找到，比如ysoserial的主类在这里配置的：
+
+![image](https://user-images.githubusercontent.com/84888757/204583888-59683ddf-a1b8-4dfa-baca-f9d53cde2c47.png)
+
+`maven-assembly-plugin`就是一个用来打包项目的插件，可以把依赖、类文件什么的都打包在一起。这里的`mainClass`的值是`ysoserial.GeneratePayload`，自然就是主类。
+
+根据这个配置，`command+左键`，打开文件`src/main/java/ysoserial/GeneratePayload.java`，点击`main`函数左边的小箭头，里面有个`debug`，这就是调试了。
+
+![image](https://user-images.githubusercontent.com/84888757/204584282-8f69120d-d4e4-4e85-8117-1df789031ad6.png)
+
+点击之后发现会打印`usage`，因为我们需要添加运行参数。所以，我们打开`Debug Configurations`添加运行参数：
+
+![image](https://user-images.githubusercontent.com/84888757/204584706-554c1a2c-33b8-461c-8d6b-fe5ff9b1ace4.png)
+
+我在`URLDNS`这个`gadget`的代码里打个断点，点击`GeneratePayload`的`main`调试，这里已经成功断下，`url`的值是 `http://111.j2zxda.dnslog.cn`。
+
+![image](https://user-images.githubusercontent.com/84888757/204584859-560362c1-e2de-4e4f-ae60-241a9e0b5b6e.png)
+
+这里只是做个演示，接下来我直接`F9`跑完程序，得到序列化数据：
+
+![image](https://user-images.githubusercontent.com/84888757/204584961-a1724ba9-815f-477c-b6cc-9345ab50642b.png)
+
+
+如果单独调试`payload`的话，可以直接调试执行`payloads`里面的`.java`文件，每个都带调用`PayloadRunner`的`main`函数，不设置运行参数会取`calc.exe`作为默认参数取执行。 `PayloadRunner`会先生成序列化数据再进行反序列化。
 
 ![image](https://user-images.githubusercontent.com/84888757/204566078-81456c66-4864-4665-95aa-33a7be10ea91.png)
 
@@ -235,7 +259,7 @@ URLDNS 中使⽤的这个`key`是⼀个 `java.net.URL` 对象，我们看看其 
 
 ![image](https://user-images.githubusercontent.com/84888757/204574980-aac82832-ae44-4f09-a346-5375db8d8330.png)
 
-此时， `handler` 是一个 `URLStreamHandler` 对象（的某个⼦类对象），后面继续跟进其 `handler.hashCode` ⽅法就知道了，这个`handler.hashCode`是`java.net.URLStreamHandler#hashCode`方法，这里给该方法传了参数`this`进去，这个`this`其实就是H`ashMap`的键`key`。
+此时， `handler` 是一个 `URLStreamHandler` 对象（的某个⼦类对象），后面继续跟进其 `handler.hashCode` ⽅法就知道了，这个`handler.hashCode`是`java.net.URLStreamHandler#hashCode`方法，这里给该方法传了参数`this`进去，这个`this`其实就是`HashMap`的键`key`。
 
 `this="http://1111.yb34ax. dnslog.cn"`
 
@@ -292,6 +316,7 @@ URLDNS 中使⽤的这个`key`是⼀个 `java.net.URL` 对象，我们看看其 
 最后，还有几个问题要解决。
 
 1、为什么生成序列化流的时候要通过反射将 `hashCode` 的值设为`-1`？
+
 因为 `hashmap` 在进行数据存储的过程中（使用`put`方法时）也调用到了 `putVal` 函数，这其中会进行 `hashcode` 的计算，经过计算之后原本初始化的 `-1` 会变成计算后的值，所以要通过反射再次修改值。
 
 
