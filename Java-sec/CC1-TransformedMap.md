@@ -24,6 +24,7 @@ Java在序列化一个对象时，将会调用这个对象中的 `writeObject` �
 
 ## 0x01 环境搭建
 1、maven项目导入依赖
+
 pom.xml导入依赖
 ```
 <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
@@ -34,6 +35,7 @@ pom.xml导入依赖
 </dependency>
 ```
 2、JDK版本及sun包源码
+
  `CC1` 链对 JDK 版本有要求，需在 `8u71` 之前。
 `CC1` 链需要用到 `sun` 包中的类，而 `sun` 包在 `jdk` 中的代码是通过 `class` 文件反编译来的，不是 `java` 文件，调试不方便，通过 `find usages` 是搜不到要找的类的，而且其代码中的对象是 `var` 这样的形式，影响代码的阅读。
 
@@ -296,8 +298,8 @@ public class CC1_1 {
 
 ```
 InvokerTransformer.transform()
-    TransformedMap.checkSetvalue()		会调用valueTransformer.transform(value)
-        AbstractInputCheckedMapDecorator静态内部类MapEntry的setValue()实际就是TransformedMap的setValue()
+    TransformedMap.checkSetvalue()		   // 会调用valueTransformer.transform(value)
+        AbstractInputCheckedMapDecorator           // 静态内部类MapEntry的setValue()实际就是TransformedMap的setValue()
             AnnotationInvocationHandler.readObject()
 ```
 
@@ -323,6 +325,7 @@ InvokerTransformer.transform()
 
 那么这样我们可以利用`ChainedTransformer`将`ConstantTransformer`和`InvokerTransformer`的`transform`方法串起来。通过`ConstantTransformer`返回某个类，交给`InvokerTransformer`去调用类中的某个方法。
 
+### 3.2 `AnnotationInvocationHandler` 中 `setValue` 不可控问题
 再次回到前面的问题，`setValue` 的参数不是可控的，怎么解决？  
 
 前面的 `Demo` 中我们都是直接指定 `value` 为 `Runtime.getRuntime()`。但实际上 `value` 并不能由我们控制。这时候就要联想到恒定转化器 `ConstantTransformer` 和链式转化器 `ChainedTransformer` 了。
@@ -376,7 +379,7 @@ public class CC1_1 {
 ![image](https://user-images.githubusercontent.com/84888757/204724499-2899a1ae-9c93-4d99-9f29-60ea25d4dd51.png)
 
 
-还有一种更简洁的弹计算器方式，就是使用 `TransformedMap` 的 `put` 方法。前面说过 `put()` 最终会调用 `transform` 方法(确切的说只要 `key` 或 `value` 发生变化都会调用这个方法)。
+还有一种更简洁的命令执行方式，就是使用 `TransformedMap` 的 `put` 方法。前面说过 `put()` 最终会调用 `transform` 方法(确切的说只要 `key` 或 `value` 发生变化都会调用这个方法)。
 
 `CC1_1_put.java` 代码如下：
 ```
@@ -412,10 +415,10 @@ public class CC1_1_put {
 
 
 
-### 3.2 `Runtime` 不可序列化问题  
-`Runtime`类并没有实现`serialize`接口，所以它是不可序列化的。
+### 3.3 `Runtime` 不可序列化问题  
+`Runtime`类并没有实现 `java.io.Serializable`接口，所以它是不可序列化的。
 
-但是我们可以通过反射来解决，因为`Class`这个类是可序列化的。
+但是我们可以通过**反射**来解决，因为`Class`这个类是可序列化的。
 通过反射，获取 `Runtime` 的 `class` 对象，就可将其变成可序列化的。
 
 将 `Runtime.getRuntime().exec()`写成反射形式就是：
@@ -479,7 +482,7 @@ public class CC1_1 {
 ![image](https://user-images.githubusercontent.com/84888757/204725797-a06643c9-f62f-4a98-a465-d694c261936b.png)
 
 
-### 3.3 `AnnotationInvocationHandler` 的反射调用
+### 3.4 `AnnotationInvocationHandler` 的反射调用
 `AnnotationInvocationHandler` 类是非`public`的，如何创建其对象呢？
 答：反射！
 因为 `sun.reflect.annotation.AnnotationInvocationHandler` 是在`JDK`内部的类，不能直接使用`new`来实例化。我们可以使用**反射**获取到它的构造方法，并将其设置成外部可见的，再调用就可以实例化了。 
@@ -494,7 +497,7 @@ Constructor construct = clazz.getDeclaredConstructor(Class.class, Map.class);
 construct.setAccessible(true);
 ```
 
-### 3.4 `AnnotationInvocationHandler` 进一步分析
+### 3.5 `AnnotationInvocationHandler` 进一步分析
 
 ![image](https://user-images.githubusercontent.com/84888757/204726609-e180fd10-26bc-46f5-a56d-09c28e6268b0.png)
 
@@ -530,8 +533,8 @@ construct.setAccessible(true);
 第二个 `if` 表达的意思是若注解实例方法的返回类型不是`key`对应的`value`的实例，或者`key`对应的`value`不是 `ExceptionProxy` 的实例，则修改`key`对应的`value`。
 
 简而言之，要满足以下2个条件：
-1. `sun.reflect.annotation.AnnotationInvocationHandler` 构造函数的第一个参数必须是`Annotation`的子类，且其中必须含有至少一个方法，假设方法名是`**X**`。
-2. 被 `TransformedMap.decorate` 修饰的`Map`中必须有一个键名为`**X**`的元素。
+1. `sun.reflect.annotation.AnnotationInvocationHandler` 构造函数的第一个参数必须是`Annotation`的子类，且其中必须含有至少一个方法，假设方法名是`XXX`。
+2. 被 `TransformedMap.decorate` 修饰的`Map`中必须有一个键名为`XXX`的元素。
 
 `Annotation`的实现类有很多：
 
