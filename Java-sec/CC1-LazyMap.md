@@ -1,4 +1,4 @@
-# 反序列化基础篇-CC1-LazyMap简化版
+# 反序列化基础篇-CC1-LazyMap
 
 ## 0x00 前置知识
 ### writeObject和readObject
@@ -35,9 +35,10 @@ pom.xml导入依赖
     <version>3.2.1</version>
 </dependency>
 ```
+
 2、JDK版本及sun包源码
 
- `CC1` 链对 JDK 版本有要求，需在 `8u71` 之前。
+`CC1` 链对 JDK 版本有要求，需在 `8u71` 之前。
 `CC1` 链需要用到 `sun` 包中的类，而 `sun` 包在 `jdk` 中的代码是通过 `class` 文件反编译来的，不是 `java` 文件，调试不方便，通过 `find usages` 是搜不到要找的类的，而且其代码中的对象是 `var` 这样的形式，影响代码的阅读。
 
 下载`sun`包，把 `src/share/classes`中的 `sun` 文件夹 放到 `oracle jdk8u66`的`src`文件夹下。
