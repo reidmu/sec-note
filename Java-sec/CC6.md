@@ -16,11 +16,11 @@ Java在序列化一个对象时，将会调用这个对象中的 `writeObject` �
 入口类条件：
 - 可序列化
 - 能重写readObject
-- 接收任意对象作为参数（集合类型/接收Obeject）
+- 接收任意对象作为参数（集合类型/接收Object）
 
 链中类条件：
 - 可序列化
-- 接收任意对象作为参数（集合类型/接收Obeject）
+- 接收任意对象作为参数（集合类型/接收Object）
 
 
 
@@ -192,7 +192,7 @@ Map expMap = new HashMap();
 expMap.put(tme, "valuevalue");
 ```
 
-然后利用反射将虚假 `Transformers` 对象替换为执行命令的数组 `transformers`
+然后利用反射将虚假 `transformerChain` 对象 `ConstantTransformer(1)` 替换为执行命令的数组 `transformers`
 
 ```
 Class c = LazyMap.class;
@@ -234,14 +234,16 @@ factoryField.set(outerMap, transformerChain);
 
 但也执行了 `map.put(key, value);` ，导致 `lazymap` 中的 `key` 之后在反序列化时就有 `keykey` 了。
 
-<img width="885" alt="image" src="https://user-images.githubusercontent.com/84888757/205511423-bf0a3dbc-4d71-466b-8be0-41f1f3c14c46.png">
+<div align=center><img width="885" alt="image" src="https://user-images.githubusercontent.com/84888757/205511423-bf0a3dbc-4d71-466b-8be0-41f1f3c14c46.png" /></div>
+
 
 
 再进行一次 `F9` 执行程序到下一次断点位置，走到反序列化过程中的 `LazyMap#get` 中，这才是我们之前想要的使用了正确的 `transformerChain` 的 `Gadget` （从 `readObject` 起步）。
 
 `LazyMap` 中已存放有 `key` 为 `keykey` ，导致 `factory.transform(key)` 方法无法触发。
 
-<img width="957" alt="image" src="https://user-images.githubusercontent.com/84888757/205511877-b4e4f53a-b01e-44c9-8c30-1f034bc6a124.png">
+<div align=center><img width="957" alt="image" src="https://user-images.githubusercontent.com/84888757/205511877-b4e4f53a-b01e-44c9-8c30-1f034bc6a124.png" /></div>
+
 
 
 解决⽅法：
@@ -296,7 +298,7 @@ public class CC6_1 {
         Map innerMap = new HashMap();
 
         // 调用 LazyMap.decorate 实例化 LazyMap
-        // 先传入一个人畜无害的Transformers对象，避免本地调试时触发命令执行
+        // 先传入一个人畜无害的虚假 `transformerChain` 对象 `ConstantTransformer(1)` ，避免本地调试时触发命令执行
         Map outerMap = LazyMap.decorate(innerMap, new ConstantTransformer(1));
 
         //创建TideMapEntry实例
