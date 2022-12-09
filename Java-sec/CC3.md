@@ -84,12 +84,12 @@ Java默认的 `ClassLoader` 就是根据类名来加载类，这个类名是类�
 ## 2.1 利用 `ClassLoader#defineClass` 加载字节码
 加载字节码本质上都要经过三个方法的调用：
 - `ClassLoader#loadClass`：从**已加载**的类缓存、父加载器等位置**寻找**类，在前面没有找到的情况下，执行 `findClass` 。 
-- `ClassLoader#findClass`：根据基础URL指定的方式来**加载**类的字节码，就像通过 `URLClassLoader` 加载字节码的方式，可能会在本地文件系统、远程http服务器或jar`包上读取字节码，然后交给 `defineClass`。
+- `ClassLoader#findClass`：根据基础URL指定的方式来**加载**类的字节码，就像通过 `URLClassLoader` 加载字节码的方式，可能会在本地文件系统、远程http服务器或jar包上读取字节码，然后交给 `defineClass`。
 - `ClassLoader#defineClass`：**处理**前面传入的字节码，将其处理成真正的Java类。
 
 所以， `ClassLoader#defineClass` 的重要性显而易见，它决定如何将一段字节流转变成一个Java类。
 
-🌰🌰
+下面来举个🌰🌰
 
 1、首先随意创建一个类
 
@@ -420,8 +420,8 @@ public class CC3_1 {
 						new Object[] { templatesImpl } )};
 ```
 
-这是由于2015年之后出现了反序列化过滤工具 [SerialKiller]([https://github.com/ikkisoft/SerialKiller/blob/master/config/serialkiller.conf]) ，它的黑名单将 InvokerTransformer 纳入其中，切断了CC1的使用。
-（图示是最新的版本，可以看到后来也添加了很多新的 Gadgets 黑名单）
+这是由于2015年之后出现了反序列化过滤工具  [SerialKiller](https://github.com/ikkisoft/SerialKiller/blob/master/config/serialkiller.conf) ，它的黑名单将 `InvokerTransformer` 纳入其中，切断了 `CC1` 的使用。
+（图示是最新的版本，可以看到后来也添加了很多新的 `Gadgets` 黑名单）
 
 ![image](https://user-images.githubusercontent.com/84888757/205985018-e1c80780-f3f5-4262-9839-893674bb08cf.png)
 
@@ -433,7 +433,7 @@ public class CC3_1 {
 
 答：可以， `com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter#TrAXFilter` 能够满足我们的需求。
 
-CC3的存在就是为了逃过一些规则对 `InvokerTransformer` 进行的限制调用 `newTransformer()` ⽅法，怎么可以离开 `TrAXFilter` 类！🤧
+`CC3` 的存在就是为了逃过一些规则对 `InvokerTransformer` 进行的限制，从而调用 `newTransformer()` ⽅法，怎么可以离开 `TrAXFilter` 类！🤧
 
 
 ## 3.4 `TrAXFilter`
@@ -458,7 +458,7 @@ CC3的存在就是为了逃过一些规则对 `InvokerTransformer` 进行的限�
 也就是说，可以通过 `InstantiateTransformer` 类的构造函数传入参数，在 `InstantiateTransformer#transform` 方法中调用 `TrAXFilter` 的构造方法，再利⽤其构造⽅法⾥的 `templates.newTransformer()` 调⽤到 `TemplatesImpl#newTransformer()` ，最后调用危险方法 `TemplatesImpl$TransletClassLoader#defineClass` ，从而执行 `TemplatesImpl` ⾥的字节码。
 
 ## 3.6 CC3 POC
-综上所述，我们构造的 Transformer 调⽤链如下：
+综上所述，我们构造的 `Transformer` 调⽤链如下：
 ```java
 Transformer[] transformers = new Transformer[] {
         new ConstantTransformer(TrAXFilter.class),
