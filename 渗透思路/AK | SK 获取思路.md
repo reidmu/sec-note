@@ -91,3 +91,7 @@ AccessKey包括AccessKeyID和AccessKeySecret两部分，AccessKeyID用于标识�
 
 3.3 getshell
 - [记一次实战阿里云主机泄露Access Key到getshell](https://cn-sec.com/archives/482553.html)
+
+3.4 其它攻击思路
+- [实战阿里云OSS云攻防 @RoBypass](https://mp.weixin.qq.com/s/MEodN2cUG55rOnBMz48LqA)
+- [分享几个比较有意思的储存桶测试案例 @leishianquan](https://www.t00ls.com/thread-66044-1-1.html)
