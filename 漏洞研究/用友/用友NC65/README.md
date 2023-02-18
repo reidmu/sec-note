@@ -16,18 +16,18 @@ SQL Server 2008 R2
 ### 1.2.1 服务器信息配置
 服务器选项可以配置JDK版本（需要与windows环境变量中的一致），还可以配置调试参数（点击读取应用服务器，在虚拟机参数后加入如下内容，再点击保存）
 
-虚拟机参数
+虚拟机参数(方便后续debug)
 
 ```
--server -Xmx768m -XX:PermSize=128m -XX:MaxPermSize=512m -Djava.awt.headless=true -Dfile.encoding=GBK -agentlib:jdwp=transport=dt_socket,suspend=n,server=y,address=-agentlib:jdwp=transport=dt_socket,suspend=n,server=y,address=192.168.204.140:9999
+-server -Xmx768m -XX:PermSize=128m -XX:MaxPermSize=512m -Djava.awt.headless=true -Dfile.encoding=GBK -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5555
 ```
 
-<div align=center><img src="https://user-images.githubusercontent.com/84888757/205448188-c02af045-5a31-4e4c-a8da-53441eea4d68.png" /></div>
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219880698-912d548b-c111-438b-8a16-cb322039e270.png" /></div>
 
 ### 1.2.2 数据源
 注：先点击读取，然后点击添加，需要填的信息全部填上，填不了的点击确定后会自动补齐
 
-<div align=center><img src="https://user-images.githubusercontent.com/84888757/205448273-0598443e-ea86-4453-87f5-074ae6ccb91e.png" /></div>
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219880728-7346626a-179d-4dcc-b1d4-4eb48591f119.png" /></div>
 
 ### 1.2.3 文件服务器
 文件服务器不用管，安全数据源也是先读取，在保存即可。
@@ -47,14 +47,13 @@ SQL Server 2008 R2
 
 可以在浏览器访问了，下载UClient客户端：
 
-（图中IP不同是因为我后来又搭建了一次环境截的图）
-
 <div align=center><img width="941" alt="image" src="https://user-images.githubusercontent.com/84888757/205448656-4fc86b01-3b40-41fa-83c0-9029655a437f.png" /></div>
 
 
 ## 1.3 安装客户端
 下载客户端
-<div align=center><img width="741" alt="image" src="https://user-images.githubusercontent.com/84888757/205448755-6ba1952c-1432-4ba6-bcab-f82f0684ee3a.png" /></div>
+
+<div align=center><img width="741" alt="image" src="https://user-images.githubusercontent.com/84888757/219880799-dd0d6e36-dedb-421e-b2f1-d6b5591fd1bb.png" /></div>
 
 应用设置->编辑模式，添加JVM参数方便后续调试客户端->以超级管理员运行
 
@@ -118,9 +117,21 @@ C:\Users\Administrator\AppData\Local\uclient\apps\7c57023b-a568-3854-bcde-ccc7f4
 
 <div align=center><img src="https://user-images.githubusercontent.com/84888757/205449554-d64a5c22-96de-4a3f-bb1e-d3158e229c56.png" /></div>
 
+## 1.4 IE浏览器直接访问
+- “你的安全设置已阻止自签名应用程序运行”问题解决：
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219883461-9afe6571-6815-46fc-b93e-92a8caa09df4.png" /></div>
+
+
+- 访问系统管理员页面，是如下链接：
+  - http://192.168.50.13:8888/admin.jsp
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219883478-5df50bfe-5be7-4f38-a6c2-0e6c23e748f7.png" /></div>
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219883494-f8e8cb5e-adfd-487f-95a9-4f9285fd782a.png" /></div>
 
 # 0x02 调试环境
-## 客户端调试-IDEA设置
+## 2.1 客户端调试-IDEA设置
 IDEA设置如下：
 
 记得对应服务端或者客户端启动后，idea才能远程调试，不然会显示拒绝连接。
@@ -133,6 +144,27 @@ IDEA设置如下：
 
 <div align=center><img src="https://user-images.githubusercontent.com/84888757/205449707-9ddc8b55-cdb8-4837-82c4-02ec55a08801.png" /></div>
 
+## 2.2 服务端调试-IDEA设置
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219880940-89c1a2d2-c5c2-4faf-acbd-eeee1a15f531.png" /></div>
+
+刚才在安装用友NC时，已经把idea里面的设置粘贴在虚拟机参数的后面：
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219881009-55b2559c-a627-4d90-892c-7d8522d4e474.png" /></div>
+
+点击调试以后：
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219881037-07d73cff-6230-4442-b92b-7c03a107f242.png" /></div>
+
+服务器端显示5555端口正在监听咯：
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219881057-10866d97-f125-4da7-bbe3-ac04eef09b1d.png" /></div>
+
+启动环境后测试一下是否可以进行正常调试，在 `webapps/nc_web/WEB-INF/web.xml` 中可以看到所有的请求都会经过 `LoggerFilter` 过滤器，所以我们就找这个过滤器对应的类 `LoggerServletFilter` 打个断点进行测试。
+
+访问 http://192.168.50.13:8888/admin.jsp， 成功断点：
+
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/219881113-f61c4c63-0dc9-4033-8cef-fb8e213bc032.png" /></div>
 
 # 0x03 路由分析
 注意，这里进行的路由分析是针对服务端代码的（搜索路由都在服务端代码中搜索），我暂且取名为 `NC65_Server_home`。
