@@ -5,7 +5,6 @@
 - [信息安全从业者书单推荐](https://github.com/riusksk/secbook)
 
 # 渗透思路
-- [渗透测试☞经验/思路/想法/总结/笔记 @pen4uin](https://github.com/pen4uin/pentest-note)
 - [超详细的渗透测试思维导图 @浅蓝](https://github.com/iSafeBlue/Mind-Map)
 - [利用HOSTS碰撞突破边界](https://xz.aliyun.com/t/9590)
 
