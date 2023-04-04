@@ -60,7 +60,7 @@
 3. 通过dns大致判断 `gadget`
 4. 存在 `cb190 gadget`
 5. 利用工具封装回显的 `payload`
-6. 起一个 `mysql fake server`
+6. 起一个 `mysql fake server`, 发送 `payload`
 
 # 0x03 漏洞复现
 ## 3.1 fastjson版本判断
