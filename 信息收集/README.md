@@ -5,8 +5,17 @@
   - [干货|最全Web 渗透测试信息搜集-CheckList @mathwizard](https://mp.weixin.qq.com/s/x6vtRNKJ7lxv9_5cSFL5gw)
 
 - 整体思路：
-  - 子域名 -> 全端口 -> http、https -> 获取资产 -> 指纹识别
+  - 子域名 -> IP -> 全端口 -> http、https -> 获取资产 -> 指纹识别
   - 小程序、公众号、APP
+  - 通过端口识别的非web资产 -> 如数据库：先批量弱口令检测，后根据获得的相关信息构造字典进行爆破
+
+- 内网信息收集的思路（不要一上来就用fscan扫描）
+  - 先在拿下的机器看 网卡信息、`history` 历史命令、`netstat` 端口信息、`arp`表、`ps` 进程、配置文件等，收集已控机器所通的其它内网网段信息。
+  - 在[微步在线](https://x.threatbook.cn/)等威胁情报社区查看域名信息。
+    - 不存在解析IP，可能是内网才能访问的域名，尝试在已控机器上 `ping` 域名得到内网地址。
+    - 存在互联网解析IP，也可以尝试在已控机器上 `ping` 域名得到内网地址。
+  - 在互联网侧的网站上，有时会有一些内网系统的跳转，比如OA系统、统一身份认证系统，点击会跳转至内网，从而获得内网地址信息。
+  - 更多手法可以看看这篇文章：[内网渗透之内网主机发现技巧](https://www.wangan.com/p/7fy7fg2ddf37decb)
 
 # 综合利用工具
 - [水泽-信息收集自动化工具](https://github.com/0x727/ShuiZe_0x727)
@@ -15,6 +24,7 @@
 - [Goby](https://gobies.org)
 - [Xray](https://github.com/chaitin/xray)
 - [Nuclei](https://github.com/projectdiscovery/nuclei)
+- [fscan](https://github.com/shadow1ng/fscan)
 
  
 # 公司名资产收集
