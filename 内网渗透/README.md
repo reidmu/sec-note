@@ -5,9 +5,12 @@
 - [红队|域渗透重要漏洞汇总(持续更新)](https://github.com/HackingCost/AD_Pentest)
   - [可直接拿域控](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#可直接拿域控)
     - [MS14-068](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#ms14-068)
-    - [CVE-2020-1472](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2020-1472)
-    - [CVE-2021-42287&42278](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2021-4228742278)
+    - [CVE-2020-1472 NetLogon](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2020-1472)
+    - [CVE-2021-42287&42278 sAMAccountName spoofing](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2021-4228742278)
     - [CVE-2021-1675/CVE-2021-34527](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2021-1675cve-2021-34527)
+      - Windows Print Spooler 服务中的漏洞，PrintNightmare 漏洞有两种变体，如下。
+      - CVE-2021-1675  权限提升
+      - CVE-2021-34527 代码执行
     - [CVE-2019-1040](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#cve-2019-1040)
     - [域委派攻击](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#域委派攻击)
     - [NTLM Relay](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#ntlm-relay)
