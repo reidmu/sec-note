@@ -27,7 +27,6 @@
 - [中文独立博客列表](https://github.com/timqian/chinese-independent-blogs)
 - [信息安全知识库](https://www.vipread.com/)
 - [狼组安全团队公开知识库](https://wiki.wgpsec.org/knowledge/)
-- [F12sec-安全知识分享 @在edu src十分眼熟的团队](http://www.0dayhack.net/)
 - [HackTricks](https://book.hacktricks.xyz/)
 - [infosecwriteups](https://infosecwriteups.com/)
 - [freebuf](https://www.freebuf.com/)
