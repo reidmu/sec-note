@@ -1,6 +1,7 @@
 # 内网渗透小清单
 
 - [如何判断存不存在内网](https://github.com/reidmu/sec-note/blob/main/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AD%98%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%86%85%E7%BD%91.md)
+- [内网渗透 | 最全的内网凭据密码收集方法和技巧总结](https://www.wangan.com/p/11v7106f0571bb5c)
 - [域管与域控定位思路合集](https://www.wangan.com/p/7fygfg9467216f3f)
 - [红队|域渗透重要漏洞汇总(持续更新)](https://github.com/HackingCost/AD_Pentest)
   - [可直接拿域控](https://github.com/HackingCost/AD_Pentest/blob/main/README.md#可直接拿域控)
