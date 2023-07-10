@@ -512,7 +512,9 @@ public class EvilTemplatesImpl extends AbstractTranslet {
 
 ![image](https://github.com/reidmu/sec-note/assets/84888757/b3ba5f80-9a87-4356-9201-e8f17d561212)
 
-
+# 0x04 参考链接
+- [Java安全漫谈 - 18.原生反序列化利用链JDK7u21](https://wx.zsxq.com/dweb2/index/topic_detail/418484145254248)
+- [Java篇之JDK7u21 @arsenetang](http://arsenetang.com/2022/07/29/Java%E7%AF%87%E4%B9%8BJDK7u21/#&gid=1&pid=2)
 
 
 
