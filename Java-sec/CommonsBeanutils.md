@@ -1,7 +1,7 @@
 # 反序列化基础篇-CommonsBeanutils
 # 0x00 前言
 
-在 [反序列化基础篇-Commons-Collections4.0 下的 CC2 和 CC4](https://github.com/reidmu/sec-note/blob/main/%E6%BC%8F%E6%B4%9E%E7%A0%94%E7%A9%B6/Fastjson/Fastjson%20JDBC4Connection%E5%88%A9%E7%94%A8.md) 中，我们学习了优先队列 `java.util.PriorityQueue`。
+在 [反序列化基础篇-Commons-Collections4.0 下的 CC2 和 CC4](https://github.com/reidmu/sec-note/blob/main/Java-sec/Commons-Collections4.0%E4%B8%8B%E7%9A%84CC2%E5%92%8CCC4.md#0x03-priorityqueue%E5%88%A9%E9%93%BE) 中，我们学习了优先队列 `java.util.PriorityQueue`。
 
 `PriorityQueue` 队列中每个元素都有自己的优先级，在反序列化 `PriorityQueue` 对象时，需要保证这个队列结构的顺序，为了进行这个排序，自然会进行大小比较，所以我们会执行 `java.util.Comparator` 接口的 `compare()` 方法来完成这个大小比较。
 
