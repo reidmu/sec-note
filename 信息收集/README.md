@@ -66,22 +66,22 @@
 
 # CDN
 ## CDN判断
-- 使用不同主机ping域名判断是否有CDN
+- 使用不同主机 ping 域名判断是否有 CDN
   - [站长之家多地ping](http://ping.chinaz.com/)
   - [ipip](http://tools.ipip.net/ping.php)
   - [全球Ping测试](https://www.wepcc.com/)
   - [爱站网Ping检测](https://ping.aizhan.com/)
-  - 使用ping域名判断是否有CDN
-    - 直接使用ping域名查看回显地址来进行判断，如下回显cname.vercel-dns.com，很明显使用了cdn技术。
+  - 使用 ping 域名判断是否有 CDN
+    - 直接使用 ping 域名查看回显地址来进行判断，如下回显 cname.vercel-dns.com ，很明显使用了 cdn 技术。
       - 图自mathwizard
 
-![image](https://user-images.githubusercontent.com/84888757/165664408-c22dbe4d-6e69-4e2b-8a22-b7cc66e65c4d.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/165664408-c22dbe4d-6e69-4e2b-8a22-b7cc66e65c4d.png" /></div>
 
-- 使用nslookup解析域名判断
-  - 其中Name字段指向cname.vercel-dns.com这类的，说明使用了CDN技术。
-  - 🌰 www.baidu.com ，其中Address字段指向两个不同IP，即www.baidu.com 可能使用了CDN。
+- 使用 nslookup 解析域名判断
+  - 其中 Name 字段指向 cname.vercel-dns.com 这类的，说明使用了 CDN 技术。
+  - 🌰 www.baidu.com ，其中 Address 字段指向两个不同 IP ，即 www.baidu.com 可能使用了 CDN。
 
-![image](https://user-images.githubusercontent.com/84888757/165663648-e0074fbc-becc-4a32-a428-73f4c253784b.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/165663648-e0074fbc-becc-4a32-a428-73f4c253784b.png" /></div>
 
 
 ## 绕过CDN，获取真实ip
@@ -101,7 +101,7 @@
   - 邮件系统一般都在内部，没有经过CDN的解析，通过利用目标网站的邮箱注册、找回密码或者RSS订阅等功能发送邮件，接收到目标回复的邮件后，查看邮件源码就 -> 获得目标的真实IP。
   - 图自mathwizard
 
-![image](https://user-images.githubusercontent.com/84888757/165666189-feeb9187-8558-4f56-a50c-2f2771f3b4b6.png)
+<div align=center><img src="https://user-images.githubusercontent.com/84888757/165666189-feeb9187-8558-4f56-a50c-2f2771f3b4b6.png" /></div>
 
 - 信息泄露
   - 利用信息泄露的敏感信息、文件（如：phpinfo页面、网站源码（备份）文件、Github泄露的信息等）获取真实的IP信息。
@@ -136,8 +136,10 @@
 - [what web - 在线指纹识别](https://www.whatweb.net/)
 
 
-# js接口
+# js及接口信息
 - JSFinder: https://github.com/Threezh1/JSFinder
+- URLFinder: https://github.com/pingc0y/URLFinder
+  - 可以看作是新版本的 JSFinder
 - LinkFinder: https://github.com/GerbenJavado/LinkFinder
 - Packer-Fuzzer: https://github.com/rtcatc/Packer-Fuzzer (webpack)
 - 搜索关键接口
