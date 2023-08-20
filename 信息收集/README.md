@@ -46,6 +46,7 @@
   - [dnsgrep - 在线](https://www.dnsgrep.cn/subdomain)
   - [bufferover - 在线](https://dns.bufferover.run/dns?q=baidu.com)
   - [OneForAll](https://github.com/shmilylty/OneForAll)
+  - [subfinder](https://github.com/projectdiscovery/subfinder)
   - [knock](https://github.com/guelfoweb/knock)
   - [subDomainsBrute](https://github.com/lijiejie/subDomainsBrute)
   - [Layer子域名挖掘机](https://github.com/euphrat1ca/LayerDomainFinder)
