@@ -34,6 +34,7 @@ Spring Cloud 是一系列框架的有序集合，是目前最火热的微服务�
 - [Spring Boot信息泄露](https://blog.csdn.net/weixin_45039616/article/details/106637978)
 - [Springboot heapdump信息泄露以及MAT分析](https://www.cnblogs.com/snowie/p/15561081.html)
   - [命令行工具heapdump_tool](https://github.com/wyzxxz/heapdump_tool)
+  - [HeapDump敏感信息提取工具](https://github.com/whwlsfb/JDumpSpider)
 
 ## CVE-2016-4977 Spring Security OAuth SpEL RCE
 - 漏洞描述：Spring Security OAuth 是为 Spring 框架提供安全认证支持的一个模块。在其使用 whitelabel views 来处理错误时，由于使用了Springs Expression Language (SpEL)，攻击者在被授权的情况下可以通过构造恶意参数来远程执行命令。
