@@ -163,7 +163,8 @@
 - [七麦](https://www.qimai.cn)
 - [AppStore](https://www.apple.com/app-store)
 
-
+# 邮箱收集
+- [EmailAll](https://github.com/Taonn/EmailAll)
 
 # WAF识别
 - [WhatWaf](https://github.com/Ekultek/WhatWaf)
