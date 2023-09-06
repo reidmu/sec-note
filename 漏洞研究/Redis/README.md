@@ -17,6 +17,8 @@ Redis因配置不当可以未授权访问。攻击者无需认证访问到内部
 - 写文件
   - windows
     - 开机自启动目录
+    - [DLL劫持/文件覆写](http://r3start.net/index.php/2020/05/25/717)
+    - [mof](https://xz.aliyun.com/t/7940#toc-6)
   - Linux
     - crontab
     - SSH key
