@@ -109,7 +109,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
-import static org.vulhub.nc65.ClassLoaderMain.getBytesByFile;
+// import static org.vulhub.nc65.ClassLoaderMain.getBytesByFile;
 
 public class ActionHandlerServletGzipExp {
     public static void main(String[] args) throws Exception{
@@ -180,6 +180,26 @@ public class ActionHandlerServletGzipExp {
 
 //        ois.readObject();
         System.out.println( ois.readObject());
+    }
+
+    public static byte[] getBytesByFile(String pathStr) {
+        File file = new File(pathStr);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(1000);
+            byte[] b = new byte[1000];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            byte[] data = bos.toByteArray();
+            bos.close();
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
