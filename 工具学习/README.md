@@ -27,6 +27,23 @@
   - 如何在pycharm中debug?
   - File system access的实现分析(以--file-write为例)
 
+# BurpSuite
+## BurpSuite配置TLS绕过ja3
+- [by lu2ker](https://www.t00ls.com/viewthread.php?tid=70042)
+
+- 旧版burp：`Project options` -> `TLS` -> `Use custom protocols and ciphers` ，修改下 `Cipher` ，这样通过自定义 `Cipher Suites` 可以简单快速的修改 `ja3` 特征。
+
+不确定是不是通⽤的，原作者是遍历所有的 `TLS Ciphers` 并依次单个勾选，最终发现 `TLS_RSA_WITH_ AES_128_CBC_SHA` 以及附近相似的都可以。或许可以通过查看证书使⽤的签名算法来挑？
+
+<div align=center><img width="631" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/588df562-16b3-4421-a045-08907cf1dc6e" /></div>
+
+<div align=center><img width="1167" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/241f9b76-b0af-41b6-b4ad-38f39ac4cd49" /></div>
+
+
+- 新版burp设置如下：
+
+<div align=center><img width="1226" alt="image" src="https://github.com/reidmu/sec-note/assets/84888757/bc05466d-524e-4c82-8796-d6e7ffe3ba1e" /></div>
+
 
 # 搜索引擎
 - [各类搜索引擎语法](https://oatmeal.vip/tools/search-engine/)
