@@ -193,6 +193,9 @@
 - 其他
   - site:xxx.com inurl:api|uid=|id=|userid=|token|session
   - site:xxx.com intitle:index.of "server at"
+- 谷歌语法生成器
+  - 在线版本：http://www.php1nf0.top/google/google.php
+  - 离线版本：去 [这里](https://mp.weixin.qq.com/s/SneMSYmy-y1_jSTchKOTQQ) 领取
 
 ## Github
   - @xxx.com password/secret/credentials/token/config/pass/login/ftp/ssh/pwd
