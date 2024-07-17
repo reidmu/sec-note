@@ -16,11 +16,12 @@
 - [阿里云漏洞库](https://47.101.61.67/)
 - [白阁文库漏洞库](https://baizesec.github.io/bylibrary/%E6%BC%8F%E6%B4%9E%E5%BA%93/01-CMS%E6%BC%8F%E6%B4%9E/ActiveMQ/ActiveMQ%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/)
 - [零组公开漏洞库](https://wiki.96.mk/)
-- [hacking8常见组件漏洞](https://www.hacking8.com/bug-product/)
+- [hacking8常见组件漏洞-该站点已经被管理员停止运行](https://www.hacking8.com/bug-product/)
 - [各种数据库的利用姿势 @safe6Sec](https://github.com/safe6Sec/PentestDB)
 - [各种CMS、各种平台、各种系统、各种软件漏洞的EXP、POC @helloexp](https://github.com/helloexp/0day)
 - [Vuln-List @想走安全的小白](https://github.com/wwl012345/Vuln-List/)
 - [POC&EXP仓库、hvv弹药库、Nday、1day @DawnFlame](https://github.com/DawnFlame/POChouse)
+- [收集整理漏洞EXp/POC,大部分漏洞来源网络，目前收集整理了700多个poc/exp，长期更新。 @wy876](https://github.com/wy876/POC)
 
 
 # 安全博客论坛
